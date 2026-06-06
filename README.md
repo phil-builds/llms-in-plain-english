@@ -10,7 +10,7 @@ Built specifically for **neurodiverse learners**: autistic, ADHD, and AuDHD. The
 
 ## What's inside
 
-96 topics across 11 sections:
+85 topics across 11 sections:
 
 1. **Foundations** — how LLMs work, tokens, context windows, embeddings
 2. **Datasets & Training** — data collection, cleaning, formatting, annotation
@@ -46,7 +46,7 @@ Alternatively, just open `full-course/index.html` directly in your browser — i
 
 - **Calm over clever** — no decorative gradients, no animations that serve no purpose
 - **Predictable always** — every topic has the same structure, the sidebar never moves
-- **Low sensory load** — warm off-white default, three themes (Paper / Sepia / Slate), reduce-motion setting
+- **Low sensory load** — warm off-white default, four themes (Paper / Sepia / Slate / Vivid), reduce-motion setting
 - **Learner controls the pace** — time estimates on every topic, resume exactly where you left off, mark complete or un-complete anything at any time
 
 Progress is saved to your browser's `localStorage` — nothing is sent anywhere.
