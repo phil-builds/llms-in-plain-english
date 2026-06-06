@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="paper" data-size="m" data-motion="normal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LLMs in Plain English</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app" id="app" data-focus="off">
+
+  <header class="topbar">
+    <button class="iconbtn menu" id="menuBtn" aria-label="Toggle menu"></button>
+    <div class="brand" id="brandHome" role="button" tabindex="0">
+      <span class="mark"></span>
+      <span class="title"><b>LLMs in Plain English</b></span>
+    </div>
+    <div class="spacer"></div>
+    <div class="progress-pill" title="Your progress">
+      <span id="pillText"><b>0</b> / 0</span>
+      <span class="track"><span class="fill" id="pillFill"></span></span>
+    </div>
+    <button class="iconbtn" id="settingsBtn" aria-label="Settings"></button>
+  </header>
+
+  <nav class="sidebar" id="sidebar" aria-label="Course contents"></nav>
+
+  <main class="main" id="main"></main>
+
+</div>
+
+<script>
+  // brand logo injected before app.js for instant paint
+  document.querySelector('.brand .mark').innerHTML =
+    '<img src="llm-course-logo.png" alt="" aria-hidden="true">';
+</script>
+
+<!-- course content (each file pushes one section into window.COURSE, in order) -->
+<script>window.COURSE = [];</script>
+<script src="content-1-foundations.js"></script>
+<script src="content-2-datasets.js"></script>
+<script src="content-3-finetuning.js"></script>
+<script src="content-4-inference.js"></script>
+<script src="content-5-ecosystem.js"></script>
+<script src="content-6-rag.js"></script>
+<script src="content-7-agents.js"></script>
+<script src="content-8-modeltypes.js"></script>
+<script src="content-9-deployment.js"></script>
+<script src="content-10-evaluation.js"></script>
+<script src="content-11-realworld.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
