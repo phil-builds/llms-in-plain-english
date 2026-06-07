@@ -151,7 +151,7 @@ window.COURSE.push({
         "<p>This is why the <b>same sentence can have different token counts on different models</b> — each one learned a slightly different set of bricks. It's also why code, math, and non-English text can tokenize in surprising ways.</p>" +
         "<p>You rarely run a tokenizer by hand, but understanding it explains a lot: why some prompts cost more, why spacing matters, and why a model sometimes “misspells” by splitting a word oddly.</p>",
       analogy:
-        "<p>Imagine cutting a long sausage into slices. A lazy cook cuts every 2cm no matter what. A smart cook cuts at natural joints so each slice is useful. A tokenizer is the smart cook — it learned where the natural “joints” in language are.</p>",
+        “<p>Imagine a roll of raffle tickets with dotted perforations between each one. You could tear anywhere — but tear at the dots and every ticket is whole and readable. Tear randomly and you get useless scraps. A tokenizer learned where the natural perforations in language fall.</p>”,
       mentalModel:
         "Tokenization is the cutting rule. Same text, different cutting rule, different number of pieces.",
       mistakes: [
