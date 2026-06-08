@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "At its core, what is an LLM actually doing?",
-          options: ["Searching a database of facts", "Predicting the next chunk of text", "Copying answers it memorised word-for-word", "Running logic rules a human wrote"],
+          options: ["Looking up matching entries from its training data", "Predicting the next chunk of text", "Replaying the closest sentence it has memorised", "Applying grammar rules programmed by linguists"],
           answer: 1,
           why: "It repeatedly predicts the most likely next piece of text. Everything else is built on top of that.",
         },
         {
           q: "Why can an LLM sound confident but still be wrong?",
-          options: ["It's lying on purpose", "It predicts plausible-sounding text, which isn't the same as checking truth", "It ran out of memory", "Its internet connection failed"],
+          options: ["Its training data was mostly drawn from inaccurate sources", "It predicts plausible-sounding text, which isn't the same as checking truth", "It can detect uncertainty but isn't designed to show it", "The system prompt instructs it to sound confident regardless"],
           answer: 1,
           why: "Plausible and true are different things. The model optimises for &ldquo;what text usually comes next,&rdquo; not &ldquo;what is verified fact.&rdquo;",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "Where does a model's &ldquo;intelligence&rdquo; actually live?",
-          options: ["In hand-written if/else rules", "In a huge set of learned numbers (parameters)", "In the internet connection", "In the chat history"],
+          options: ["In a lookup table compiled from the training examples", "In a huge set of learned numbers (parameters)", "In a search index the model queries at response time", "In the rules the training engineers programmed by hand"],
           answer: 1,
           why: "Training bakes the patterns into millions or billions of numbers. That frozen set of numbers is the model.",
         },
         {
           q: "Does a standard chatbot learn from your conversation as you talk to it?",
-          options: ["Yes, it rewrites itself after every message", "No — by default the model is frozen; your history is just re-read as input", "Only on weekends", "Only if you pay"],
+          options: ["Yes — each reply updates the model's weights in the background", "No — by default the model is frozen; your history is just re-read as input", "Only if you explicitly opt in to the memory feature", "It stores your messages and retrains on them overnight"],
           answer: 1,
           why: "The model stays fixed. The feeling of memory comes from feeding past messages back in, not from the model changing.",
         },
@@ -133,7 +133,7 @@ window.COURSE.push({
         },
         {
           q: "Why do tokens matter in practice?",
-          options: ["They make text prettier", "Limits, memory, and cost are all measured in tokens", "They translate languages", "They speed up your internet"],
+          options: ["They compress your prompt so it fits the model's memory", "Limits, memory, and cost are all measured in tokens", "They divide text so each fragment can be looked up separately", "They encode grammatical structure the model reads directly"],
           answer: 1,
           why: "Tokens are the unit for context limits and pricing — they're the model's currency.",
         },
@@ -172,13 +172,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does a tokenizer do?",
-          options: ["Translates between languages", "Cuts text into tokens using learned patterns", "Checks spelling", "Connects to the internet"],
+          options: ["Encodes words into their dictionary definitions", "Cuts text into tokens using learned patterns", "Converts words to a shared numeric code all models use", "Maps each word directly to its embedding vector"],
           answer: 1,
           why: "It splits text into tokens based on chunks that appear frequently in its training text.",
         },
         {
           q: "Why might the same sentence cost more tokens on one model than another?",
-          options: ["One model is slower", "Each model family learned a different set of token &ldquo;bricks&rdquo;", "The internet was busy", "Longer sentences are always cheaper"],
+          options: ["Models with larger vocabularies always use fewer tokens overall", "Each model family learned a different set of token &ldquo;bricks&rdquo;", "Token pricing varies by provider, not by how the text is split", "Newer model versions automatically reduce token counts for efficiency"],
           answer: 1,
           why: "Different tokenizers split text differently, so token counts vary between model families.",
         },
@@ -216,13 +216,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What counts toward the context window?",
-          options: ["Only your latest question", "Your question, the history, pasted text, instructions, AND the reply", "Only the AI's answers", "Only documents you upload"],
+          options: ["Your current message and any files you attached this session", "Your question, the history, pasted text, instructions, AND the reply", "The system prompt and your messages, but not the model's replies", "Everything the model learned during training"],
           answer: 1,
           why: "It's the total budget for everything in play at that moment, including the answer being generated.",
         },
         {
           q: "Why do long conversations sometimes &ldquo;forget&rdquo; the beginning?",
-          options: ["The model gets bored", "Old tokens fall outside the context window and get dropped", "The internet resets", "It's a bug that should be reported"],
+          options: ["The model compresses older messages to free up space internally", "Old tokens fall outside the context window and get dropped", "The session resets automatically after reaching a message limit", "Earlier messages receive lower attention weights as the chat grows"],
           answer: 1,
           why: "Once the conversation exceeds the window, the oldest content must be trimmed or summarised to make room.",
         },
@@ -262,13 +262,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does an embedding represent?",
-          options: ["The exact original words", "A list of numbers capturing meaning, where similar meanings are close together", "The file size of the text", "A password for the text"],
+          options: ["A compressed version of the original text that can be decoded back", "A list of numbers capturing meaning, where similar meanings are close together", "A numerical index pointing into the model's vocabulary table", "A probability score showing how likely the text is in training data"],
           answer: 1,
           why: "Embeddings map meaning to coordinates, so similarity becomes closeness in that space.",
         },
         {
           q: "Why shouldn't you mix embeddings from two different models?",
-          options: ["It's against the rules", "Their coordinate systems differ, so distances aren't comparable", "It costs more money", "Models get jealous"],
+          options: ["One model's embeddings may use a different data type or scale", "Their coordinate systems differ, so distances aren't comparable", "Mixing models slows down nearest-neighbour search significantly", "The combined vector space becomes too large to index reliably"],
           answer: 1,
           why: "Each model defines its own space; coordinates from one aren't meaningful in another's.",
         },
@@ -307,13 +307,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What was the Transformer's big breakthrough?",
-          options: ["Reading text faster left-to-right", "Letting every word consider every other word at once", "Making models smaller", "Removing the need for training"],
+          options: ["Reading text in both directions rather than left-to-right only", "Letting every word consider every other word at once", "Stacking many layers to give the model deeper sequential memory", "Using position markers so the model learns exact word order"],
           answer: 1,
           why: "Transformers process all tokens together and learn which ones relate, even across long distances.",
         },
         {
           q: "What's the difference between a Transformer and a model like GPT?",
-          options: ["They're the same thing", "Transformer is the blueprint; a specific model is one building made from it", "GPT is older", "Transformers can't be trained"],
+          options: ["A Transformer is a specific product; GPT is the general architecture", "Transformer is the blueprint; a specific model is one building made from it", "GPT adds a chat interface on top of the base Transformer design", "Transformers handle language only; GPT extends them to general reasoning"],
           answer: 1,
           why: "The Transformer is the architecture; an individual model is a trained instance of that design.",
         },
@@ -352,13 +352,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does the attention mechanism do?",
-          options: ["Stores text on disk", "Lets each word focus on the other words most relevant to it", "Translates languages", "Counts tokens"],
+          options: ["Ranks words by frequency to predict what token comes next", "Lets each word focus on the other words most relevant to it", "Caches recently used words to speed up generation", "Weights each layer's output by its depth in the network"],
           answer: 1,
           why: "Attention scores how much each word should focus on every other word, like a spotlight on what's relevant.",
         },
         {
           q: "What does &ldquo;self-attention&rdquo; mean?",
-          options: ["The model attends to outside databases", "Words attend to other words within the same text", "The model rests", "Attention turns itself off"],
+          options: ["The attention module queries an external memory store", "Words attend to other words within the same text", "Each word attends only to its own position in the sequence", "The model weighs its previous responses when generating the next one"],
           answer: 1,
           why: "Self-attention means tokens relate to other tokens in the same input, not to an external source.",
         },
@@ -397,13 +397,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does the &ldquo;7B&rdquo; in a model name refer to?",
-          options: ["7 billion tokens of context", "7 billion parameters (the learned dials)", "7 benchmarks passed", "7 GB download size exactly"],
+          options: ["7 billion tokens that fit in the context window", "7 billion parameters (the learned dials)", "7 distinct benchmarks the model was evaluated against", "7 gigabytes of memory required to run the model"],
           answer: 1,
           why: "B means billion, and it counts parameters — the adjustable numbers tuned during training.",
         },
         {
           q: "Is a model with more parameters always better?",
-          options: ["Yes, always", "No — data quality and training method matter too, and bigger costs more to run", "Only on Mondays", "Only for images"],
+          options: ["Yes — more parameters means more patterns the model can represent", "No — data quality and training method matter too, and bigger costs more to run", "It depends mainly on hardware — bigger models run better on newer chips", "Generally yes, though very large models can overfit to training data"],
           answer: 1,
           why: "Count signals capacity and cost, but a well-trained smaller model can beat a poorly-trained larger one.",
         },
@@ -448,7 +448,7 @@ window.COURSE.push({
         },
         {
           q: "What's the key difference between training and inference?",
-          options: ["Training uses the model; inference builds it", "Training changes the model's parameters; inference just uses them frozen", "They're the same", "Inference is more expensive than training"],
+          options: ["Training uses the model's outputs; inference adjusts its weights", "Training changes the model's parameters; inference just uses them frozen", "Training requires data; inference requires a fast internet connection", "Both phases adjust parameters, but inference adjusts them more gently"],
           answer: 1,
           why: "Training adjusts parameters (rare, costly). Inference uses the frozen model (constant, cheaper).",
         },
@@ -488,13 +488,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the main practical advantage of an open-weight model?",
-          options: ["It's always smarter", "You can download and run it yourself — privacy, control, and no per-use fee", "It needs no hardware", "It can't be fine-tuned"],
+          options: ["The weights are publicly audited, so quality is independently verified", "You can download and run it yourself — privacy, control, and no per-use fee", "You avoid vendor lock-in and can switch providers without any cost", "Community contributions continuously improve the model weights for free"],
           answer: 1,
           why: "You hold the actual parameters, so you control privacy, cost, customisation, and offline use.",
         },
         {
           q: "Is open-source AI completely free?",
-          options: ["Yes, no costs at all", "The model is free to download, but you pay for hardware and electricity to run it", "Only the first month", "No, it always costs per token"],
+          options: ["Yes — community cloud providers typically cover the compute costs", "The model is free to download, but you pay for hardware and electricity to run it", "Free for personal use, but commercial projects require a paid licence", "Costs depend only on model size, not on whether it's open or closed"],
           answer: 1,
           why: "There's no licence fee, but running it yourself has real hardware and energy costs.",
         },

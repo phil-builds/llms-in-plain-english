@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is llama.cpp mainly for?",
-          options: ["Training huge models in the cloud", "Running models locally and efficiently, even on modest hardware", "Cleaning datasets", "Drawing graphics"],
+          options: ["Fine-tuning open models using multi-GPU clusters with minimal setup", "Running models locally and efficiently, even on modest hardware", "Serving models at high concurrency for commercial API endpoints", "Evaluating model outputs against benchmark datasets automatically"],
           answer: 1,
           why: "It's an efficient local inference engine, famous for running quantized GGUF models on everyday machines.",
         },
         {
           q: "How do many people use llama.cpp without realising it?",
-          options: ["Through their TV", "Via friendlier tools like Ollama that use it as the engine underneath", "By training models", "It's never used indirectly"],
+          options: ["Through a cloud API that calls a hosted version of it automatically", "Via friendlier tools like Ollama that use it as the engine underneath", "By accessing it directly through the Hugging Face transformers library", "It's always invoked explicitly — there are no transparent wrappers for it"],
           answer: 1,
           why: "Wrappers like Ollama run on top of llama.cpp, so it powers them behind the scenes.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What makes Ollama beginner-friendly?",
-          options: ["It requires no computer", "One simple command downloads and runs a local model for you", "It only runs in the cloud", "It needs manual quantization"],
+          options: ["It auto-selects the optimal model for your task without any user input", "One simple command downloads and runs a local model for you", "It manages a remote GPU cluster so you don't need local hardware", "It converts models into GGUF format automatically before running them"],
           answer: 1,
           why: "Ollama hides the setup — a single command pulls and runs a model with a sensible default.",
         },
         {
           q: "What's a key benefit of running models with Ollama locally?",
-          options: ["It's always the most powerful", "Privacy, no per-token cost, and offline use", "It needs no memory", "It trains models"],
+          options: ["Lower latency, because Ollama streams responses faster than any API provider", "Privacy, no per-token cost, and offline use", "Better output quality, because local models can read your file system directly", "Higher concurrency, because the local server handles unlimited simultaneous users"],
           answer: 1,
           why: "Local execution keeps data on your machine, avoids per-use fees, and works offline.",
         },
@@ -127,13 +127,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is vLLM optimised for?",
-          options: ["Easy single-user local chat", "Fast, high-throughput serving of many concurrent requests on GPUs", "Training from scratch", "Drawing images"],
+          options: ["Simple local inference where ease of setup matters more than raw speed", "Fast, high-throughput serving of many concurrent requests on GPUs", "Fine-tuning with minimal code using adapter-based training on a single GPU", "Evaluating model outputs across benchmarks to compare candidate models"],
           answer: 1,
           why: "vLLM targets scalable serving with smart caching and continuous batching for many users.",
         },
         {
           q: "When would you pick Ollama over vLLM?",
-          options: ["Serving a million users", "Personal, local, or prototype use where simplicity matters", "Maximum GPU throughput", "Never"],
+          options: ["Scaling to hundreds of concurrent users with low latency requirements", "Personal, local, or prototype use where simplicity matters", "Production deployments that require PagedAttention and continuous batching", "High-volume API endpoints where cost-per-token needs to be minimised"],
           answer: 1,
           why: "Ollama is the simple local option; vLLM is for serving many people at scale.",
         },
@@ -172,13 +172,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "MLX is designed for which hardware?",
-          options: ["Any GPU", "Apple Silicon (M-series) Macs", "Only phones", "Old Windows laptops"],
+          options: ["Any CUDA-capable NVIDIA GPU regardless of operating system", "Apple Silicon (M-series) Macs", "Linux servers with AMD GPUs using the ROCm framework", "Windows machines with integrated Intel Iris graphics"],
           answer: 1,
           why: "MLX is Apple's framework optimised for M-series chips and their unified memory.",
         },
         {
           q: "What's MLX's standout advantage on Macs?",
-          options: ["It needs no memory", "Unified memory shared by CPU and GPU, easing the usual VRAM limits", "It runs in the browser", "It trains in the cloud"],
+          options: ["Apple-optimised quantization formats that produce smaller files than GGUF", "Unified memory shared by CPU and GPU, easing the usual VRAM limits", "Hardware-accelerated attention that gives better quality than Flash Attention", "Built-in model evaluation tools that benchmark on standard NLP tasks automatically"],
           answer: 1,
           why: "Unified memory lets models use a large shared pool, helping capable models run on consumer Macs.",
         },
@@ -223,7 +223,7 @@ window.COURSE.push({
         },
         {
           q: "What should you check before downloading a model from it?",
-          options: ["Its colour", "Its model card — size, licence, and intended use", "The weather", "Nothing"],
+          options: ["Its leaderboard ranking, since higher rank always means better real-world fit", "Its model card — size, licence, and intended use", "The number of likes, as community approval reliably predicts suitability", "Its creation date — newer models are always preferable to older ones"],
           answer: 1,
           why: "Model cards reveal size, licence, and limitations so you pick something you can and may use.",
         },
@@ -262,13 +262,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does Unsloth help you do?",
-          options: ["Serve models to millions", "Fine-tune open models faster and with less memory", "Draw images", "Browse datasets"],
+          options: ["Serve fine-tuned models at scale with automatic load balancing", "Fine-tune open models faster and with less memory", "Evaluate model quality across standard NLP benchmarks automatically", "Convert models between quantization formats for different hardware targets"],
           answer: 1,
           why: "Unsloth speeds up and lightens LoRA/QLoRA fine-tuning, great for limited hardware.",
         },
         {
           q: "What does Unsloth NOT fix?",
-          options: ["Training speed", "Bad or poorly-formatted data", "Memory use", "Ease of setup"],
+          options: ["Training speed — Unsloth's core optimisations keep it at standard pace", "Bad or poorly-formatted data", "Memory use — it applies no compression or efficiency techniques internally", "Ease of setup — the environment still requires manual dependency management"],
           answer: 1,
           why: "Faster training can't rescue low-quality or wrongly-formatted data — quality still rules.",
         },
@@ -307,13 +307,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's Axolotl's defining style?",
-          options: ["No setup at all", "Configuration-driven fine-tuning via a settings (YAML) file", "Image generation", "Serving at scale"],
+          options: ["A visual drag-and-drop interface for assembling training pipelines", "Configuration-driven fine-tuning via a settings (YAML) file", "Auto-tuning that selects the best hyperparameters without user input", "A managed cloud service that handles dataset storage and GPU provisioning"],
           answer: 1,
           why: "You describe your run in a config file and execute it, making experiments tidy and repeatable.",
         },
         {
           q: "What does the config approach make easier?",
-          options: ["Drawing graphics", "Repeating and tweaking experiments by editing a few lines", "Browsing the web", "Reducing token cost"],
+          options: ["Hiding all hyperparameters so runs are fully automated and hands-off", "Repeating and tweaking experiments by editing a few lines", "Merging adapters from different runs into a single improved base model", "Speeding up the forward pass by rewriting the training loop in lower-level code"],
           answer: 1,
           why: "Changing a few config lines re-runs a new experiment, aiding reproducibility.",
         },
@@ -352,7 +352,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does PEFT stand for, and what is it?",
-          options: ["A GPU brand", "Parameter-Efficient Fine-Tuning — an idea and a library for adapter-based tuning", "A dataset", "A quantization format"],
+          options: ["A Hugging Face tool for benchmarking instruction-tuned models on standard tasks", "Parameter-Efficient Fine-Tuning — an idea and a library for adapter-based tuning", "A dataset format for organising preference pairs used in DPO training", "A quantization standard that stores model weights at reduced bit precision"],
           answer: 1,
           why: "PEFT is the umbrella concept plus a Hugging Face library implementing LoRA-style methods.",
         },
@@ -397,13 +397,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does the TRL library provide?",
-          options: ["Image filters", "Ready-made trainers for SFT, DPO, and RLHF post-training steps", "A GPU", "A chat UI"],
+          options: ["A set of serving utilities for deploying fine-tuned models behind an API endpoint", "Ready-made trainers for SFT, DPO, and RLHF post-training steps", "A dataset preprocessing library for converting raw text into instruction pairs", "A logging framework for tracking loss curves and evaluation metrics during training"],
           answer: 1,
           why: "TRL offers usable trainers for the post-pretraining procedures like SFT and DPO.",
         },
         {
           q: "How do PEFT and TRL work together?",
-          options: ["They don't", "PEFT makes training efficient (LoRA); TRL runs the procedure (SFT/DPO)", "They both serve models", "They both clean data"],
+          options: ["TRL wraps PEFT internally, so you only ever call PEFT directly", "PEFT makes training efficient (LoRA); TRL runs the procedure (SFT/DPO)", "Both handle serving — PEFT for local use, TRL for production deployments", "Both reduce memory use, but through different mechanisms that often conflict"],
           answer: 1,
           why: "PEFT handles parameter efficiency; TRL handles the training procedure — they combine.",
         },

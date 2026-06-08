@@ -38,13 +38,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does LoRA actually train?",
-          options: ["All the model's parameters", "A small set of new add-on parameters, while the base stays frozen", "Only the tokenizer", "Nothing"],
+          options: ["All layers of the base model, with a lower learning rate", "A small set of new add-on parameters, while the base stays frozen", "Only the final few layers closest to the output", "The embedding layer and the output classification head"],
           answer: 1,
           why: "LoRA freezes the original model and trains a tiny adapter, saving memory and cost.",
         },
         {
           q: "Why is LoRA so popular?",
-          options: ["It makes models bigger", "Cheap, fast, small files, and swappable adapters on one base", "It removes the need for data", "It only works offline"],
+          options: ["It matches full fine-tuning quality for the same compute cost", "Cheap, fast, small files, and swappable adapters on one base", "It permanently improves the base model's weights after training", "It removes the need for GPUs by offloading training to the cloud"],
           answer: 1,
           why: "Training few parameters means low cost and memory, plus portable, swappable adapters.",
         },
@@ -83,13 +83,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does the Q in QLoRA add?",
-          options: ["Faster internet", "Quantization — compressing the frozen base model to save memory", "Quality guarantees", "Extra parameters to train"],
+          options: ["Pruning — removing underused weights to shrink the model's size", "Quantization — compressing the frozen base model to save memory", "Query-based retrieval — pulling relevant facts from a database", "Quantified quality scores for measuring fine-tuning progress"],
           answer: 1,
           why: "QLoRA quantizes the base model so big models fit in far less memory during fine-tuning.",
         },
         {
           q: "Why was QLoRA a big deal?",
-          options: ["It made models slower", "It let small teams fine-tune large models on a single consumer GPU", "It removed the need for data", "It deleted LoRA"],
+          options: ["It made fine-tuning more deterministic and reproducible across hardware", "It let small teams fine-tune large models on a single consumer GPU", "It reduced fine-tuning time by running adapters in parallel", "It extended LoRA to work with vision and multimodal models"],
           answer: 1,
           why: "By shrinking memory needs with little quality loss, it democratised fine-tuning of large models.",
         },
@@ -128,13 +128,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the main appeal of DPO over classic RLHF?",
-          options: ["It needs no data", "It's simpler and more stable — no separate reward model or RL loop", "It makes models bigger", "It adds new facts"],
+          options: ["It produces higher quality alignment than RLHF on every benchmark", "It's simpler and more stable — no separate reward model or RL loop", "It works with unlabelled text rather than requiring preference pairs", "It permanently injects preferred behaviours into the base weights"],
           answer: 1,
           why: "DPO learns directly from preference pairs, skipping RLHF's reward model and reinforcement loop.",
         },
         {
           q: "What does DPO train on?",
-          options: ["Raw web text", "Preference pairs of chosen vs rejected answers", "Images", "Only system prompts"],
+          options: ["Instruction/answer pairs with human-assigned quality ratings", "Preference pairs of chosen vs rejected answers", "Unlabelled domain text the model needs to specialise in", "System prompt examples that define the model's target persona"],
           answer: 1,
           why: "It uses chosen/rejected comparisons to push the model toward preferred answers.",
         },
@@ -173,13 +173,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What are the three stages of RLHF?",
-          options: ["Tokenize, train, deploy", "Collect human preferences → train a reward model → improve the model via reinforcement", "Clean, format, store", "Quantize, prune, serve"],
+          options: ["Pretrain, fine-tune, then evaluate the model on alignment benchmarks", "Collect human preferences → train a reward model → improve the model via reinforcement", "Write a system prompt, run evals, then adjust the instructions iteratively", "Label examples, train an embedding model, then retrieve from a vector store"],
           answer: 1,
           why: "Human rankings train a reward model, which then guides the main model through reinforcement learning.",
         },
         {
           q: "Why did simpler methods like DPO appear?",
-          options: ["RLHF was too cheap", "RLHF is complex and finicky, so a simpler, stabler approach was desirable", "RLHF added too many facts", "RLHF used no humans"],
+          options: ["RLHF required too much labelled data to be practical at scale", "RLHF is complex and finicky, so a simpler, stabler approach was desirable", "RLHF produced models that learned to game the reward model's scores", "RLHF only worked for text generation, not instruction following"],
           answer: 1,
           why: "RLHF's multi-stage reward-model + RL loop is hard to run, motivating simpler alternatives.",
         },
@@ -219,13 +219,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does quantization do?",
-          options: ["Adds parameters", "Stores the model's numbers with less precision to shrink and speed it up", "Translates languages", "Cleans the dataset"],
+          options: ["Removes underused parameters to make the model smaller and faster", "Stores the model's numbers with less precision to shrink and speed it up", "Splits the model across multiple GPUs to process inputs in parallel", "Replaces general layers with task-specific efficient alternatives"],
           answer: 1,
           why: "It rounds parameters to fewer bits, making models smaller and faster with a small quality cost.",
         },
         {
           q: "Between Q4 and Q8, which is smaller and rougher?",
-          options: ["Q8", "Q4", "They're identical", "Neither is about size"],
+          options: ["Q8", "Q4", "They're the same file size, differing only in internal format", "Q4 is larger but preserves more decimal precision"],
           answer: 1,
           why: "Lower numbers mean fewer bits — smaller files and rougher precision.",
         },
@@ -263,13 +263,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a model checkpoint?",
-          options: ["A type of GPU", "A saved snapshot of the model's parameters at a point in time", "A token limit", "A chat template"],
+          options: ["A hardware interface that speeds up parameter loading", "A saved snapshot of the model's parameters at a point in time", "A benchmark score recorded during an evaluation run", "A set of default training hyperparameters saved alongside the model"],
           answer: 1,
           why: "It's a save file of the weights, used to resume, compare, or roll back.",
         },
         {
           q: "Why save checkpoints during training, not just at the end?",
-          options: ["To use more disk for fun", "To resume after crashes and keep the best version", "To increase token cost", "It has no purpose"],
+          options: ["To average multiple snapshots into a single final model", "To resume after crashes and keep the best version", "To let other researchers reproduce your training run exactly", "To document changes in model behaviour across training steps"],
           answer: 1,
           why: "Regular saves protect against crashes and let you pick the strongest snapshot, since later isn't always better.",
         },
@@ -308,13 +308,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the core idea of adapter tuning?",
-          options: ["Retrain the whole model", "Add small trainable modules and freeze the big model", "Delete parameters", "Translate text"],
+          options: ["Update all layers using gradient clipping to preserve key weights", "Add small trainable modules and freeze the big model", "Replace existing layers with smaller, lighter alternatives", "Distil the model into a smaller student network that trains separately"],
           answer: 1,
           why: "Adapters are small new modules you train while the base model stays frozen — LoRA is the famous example.",
         },
         {
           q: "What does PEFT stand for?",
-          options: ["Powerful Engine For Training", "Parameter-Efficient Fine-Tuning", "Public Edge File Transfer", "Pre-Encoded Fast Tokens"],
+          options: ["Parallel Ensemble of Fine-Tuned models", "Parameter-Efficient Fine-Tuning", "Partially Encoded Frozen Transformers", "Progressive Evaluation of Foundation Tasks"],
           answer: 1,
           why: "PEFT is the umbrella term for fine-tuning while touching as few parameters as possible.",
         },
@@ -353,13 +353,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is GGUF mainly for?",
-          options: ["Training models in the cloud", "Storing models in a single file that's easy to run locally", "Cleaning datasets", "Counting tokens"],
+          options: ["Quantizing model weights before uploading to the Hugging Face hub", "Storing models in a single file that's easy to run locally", "Compressing multiple checkpoints into a single training archive", "Defining the configuration for distributed multi-GPU training"],
           answer: 1,
           why: "GGUF packages a model into one convenient, usually-quantized file built for local inference.",
         },
         {
           q: "What does “Q4” in a GGUF filename tell you?",
-          options: ["It's the 4th version", "It's a 4-bit quantized (smaller, rougher) version", "It needs 4 GPUs", "It has 4 billion parameters"],
+          options: ["It was released as the 4th iteration of the GGUF format", "It's a 4-bit quantized (smaller, rougher) version", "It runs inference in 4-token batches to reduce memory overhead", "It has 4 billion parameters and was the first consumer-grade size"],
           answer: 1,
           why: "The Q-number is the quantization level; Q4 means 4-bit — small enough for laptops.",
         },

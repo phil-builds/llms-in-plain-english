@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does RAG do?",
-          options: ["Retrains the model on new data", "Retrieves relevant real text and has the model answer using it", "Quantizes the model", "Counts tokens"],
+          options: ["Fine-tunes the model on your documents so it internalises the facts permanently", "Retrieves relevant real text and has the model answer using it", "Caches the model's past responses to reuse them for similar future questions", "Compresses the document into the model's context window for faster lookup"],
           answer: 1,
           why: "RAG fetches relevant information at question time and grounds the model's answer in it.",
         },
         {
           q: "What's a key benefit of RAG?",
-          options: ["Smaller model files", "Fresh, specific facts and fewer hallucinations without retraining", "Faster GPUs", "More parameters"],
+          options: ["Better reasoning ability, since retrieved text teaches the model new logic patterns", "Fresh, specific facts and fewer hallucinations without retraining", "Faster generation speed by caching repeated query results for future use", "Improved quality on abstract tasks where no specific documents are needed"],
           answer: 1,
           why: "By grounding answers in real, updatable documents, RAG improves accuracy and currency cheaply.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a vector database built to do?",
-          options: ["Store images only", "Store embeddings and quickly find the closest ones by meaning", "Train models", "Block spam"],
+          options: ["Index raw document text so keyword queries can match against exact strings", "Store embeddings and quickly find the closest ones by meaning", "Cache model outputs so frequently asked questions skip inference entirely", "Compress large documents into fixed-size summaries for efficient storage"],
           answer: 1,
           why: "It holds embeddings and performs fast nearest-neighbour search to find similar meanings.",
         },
         {
           q: "How does vector search differ from normal search?",
-          options: ["It's slower always", "It matches by meaning, not exact keywords", "It needs no data", "It only finds exact titles"],
+          options: ["It requires documents to share at least one keyword with the query to match", "It matches by meaning, not exact keywords", "It ranks results by recency rather than relevance to the query", "It only works when the query and document are in the same language"],
           answer: 1,
           why: "Vector search finds semantically similar text even without shared words.",
         },
@@ -128,13 +128,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "Why do we chunk documents for RAG?",
-          options: ["To save disk space only", "So retrieval can find the specific relevant piece, not a whole document", "To train the model", "To translate them"],
+          options: ["To reduce embedding costs by merging many small files before processing", "So retrieval can find the specific relevant piece, not a whole document", "To strip metadata and formatting before storing documents in the vector database", "To prevent the model from reading too much text from a single source at once"],
           answer: 1,
           why: "Chunks let the system retrieve the precise relevant part instead of an unwieldy whole document.",
         },
         {
           q: "What's a risk of chunks that are too small?",
-          options: ["They're too accurate", "They lose surrounding context and return meaningless fragments", "They train faster", "They use no memory"],
+          options: ["They match too precisely, returning only one source when several might be relevant", "They lose surrounding context and return meaningless fragments", "They increase embedding cost because more chunks require more API calls to process", "They cause the re-ranker to over-favour short passages with high keyword density"],
           answer: 1,
           why: "Tiny chunks can't carry enough context to be understood or useful on their own.",
         },
@@ -175,13 +175,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a retrieval pipeline?",
-          options: ["A single model", "The end-to-end steps from documents and question to a grounded answer", "A GPU cluster", "A chat template"],
+          options: ["A specialised model fine-tuned to retrieve facts from a specific document collection", "The end-to-end steps from documents and question to a grounded answer", "A managed cloud service that hosts vector databases and embedding APIs together", "A type of prompt template that instructs the model to cite its sources automatically"],
           answer: 1,
           why: "It's the full RAG assembly line: load, chunk, embed, store, retrieve, re-rank, prompt, generate.",
         },
         {
           q: "Why think of RAG as a pipeline of stages?",
-          options: ["To make it look complex", "So you can debug which specific stage failed when answers are wrong", "To avoid using a model", "To reduce tokens"],
+          options: ["To run each stage in parallel and reduce overall end-to-end latency", "So you can debug which specific stage failed when answers are wrong", "To allow different models to handle different parts of the knowledge base", "To cache intermediate results so repeated queries skip early stages entirely"],
           answer: 1,
           why: "Stages let you isolate the weak link (chunking, retrieval, prompt) instead of blaming the whole system.",
         },
@@ -220,13 +220,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "How do AI memory systems actually work?",
-          options: ["The model permanently learns new facts each chat", "Facts are stored outside the model and retrieved back into the prompt when relevant", "They add GPUs", "They quantize the model"],
+          options: ["The model permanently learns new facts each chat through continuous online learning", "Facts are stored outside the model and retrieved back into the prompt when relevant", "The context window is extended between sessions so past messages remain visible", "The model's weights are updated incrementally after each conversation ends"],
           answer: 1,
           why: "Memory is external storage plus retrieval — the model stays frozen; relevant facts are re-inserted.",
         },
         {
           q: "Why is memory closely related to RAG?",
-          options: ["They're unrelated", "Memory is essentially retrieval aimed at facts about the user", "Both train models", "Both draw images"],
+          options: ["They're unrelated — RAG operates on documents, memory on conversation turns only", "Memory is essentially retrieval aimed at facts about the user", "Both fine-tune the model over time so repeated information becomes permanent", "Both require a fresh embedding of the entire knowledge base after each session"],
           answer: 1,
           why: "Both store information externally and retrieve the relevant bits into the prompt at the right time.",
         },
@@ -265,13 +265,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is semantic search?",
-          options: ["Searching by exact keywords", "Searching by meaning using embeddings and vector search", "Training a model", "Counting tokens"],
+          options: ["Searching by exact keyword matches using inverted indexes like traditional search engines", "Searching by meaning using embeddings and vector search", "Searching by document structure — headings and metadata rather than content", "Searching by recency, surfacing the most recently updated documents first"],
           answer: 1,
           why: "It matches based on meaning, finding related content even without shared words.",
         },
         {
           q: "What is hybrid search?",
-          options: ["Two models merged", "Combining keyword search and semantic search for the best of both", "Search with no index", "A type of GPU"],
+          options: ["A search system that re-embeds documents on every query for maximum freshness", "Combining keyword search and semantic search for the best of both", "A retrieval method that searches both the document text and its metadata simultaneously", "A ranking approach that uses a large model to score every document in the collection"],
           answer: 1,
           why: "Hybrid search blends exact keyword matching with meaning-based semantic search.",
         },

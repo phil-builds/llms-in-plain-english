@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's a core benefit of local inference?",
-          options: ["It's always more powerful", "Privacy, offline use, no per-token cost, and control", "It needs no hardware", "It can't be quantized"],
+          options: ["Lower latency than cloud APIs because the model is already warm on your machine", "Privacy, offline use, no per-token cost, and control", "Access to larger models than cloud providers since you control the hardware directly", "Automatic scaling so throughput increases when multiple users hit the model together"],
           answer: 1,
           why: "Running locally keeps data private, works offline, avoids per-use fees, and gives full control.",
         },
         {
           q: "What's the main constraint on local inference?",
-          options: ["The colour of your screen", "Your hardware must fit a good-enough model (VRAM limits)", "Internet speed", "The time of day"],
+          options: ["The model licence — most open models only permit cloud deployment, not local use", "Your hardware must fit a good-enough model (VRAM limits)", "Latency — local inference is always slower than a well-hosted cloud API", "The number of CPU cores, since local inference bypasses the GPU entirely"],
           answer: 1,
           why: "The model plus its working memory must fit your hardware, which limits which models you can run.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is on-device AI?",
-          options: ["AI in a far-away data center", "Models running directly on phones and gadgets, not a server", "A type of dataset", "Cloud training"],
+          options: ["AI that runs on an edge server in a regional data center, closer than the main cloud", "Models running directly on phones and gadgets, not a server", "A distributed training method that uses many small devices in parallel", "A quantization approach specifically designed for mobile CPU and GPU chips"],
           answer: 1,
           why: "On-device AI runs the model on the device itself, enabling instant, private, offline features.",
         },
         {
           q: "What makes on-device AI feasible?",
-          options: ["Huge models", "Small efficient models, quantization, and special chips (NPUs)", "Faster internet", "More tokens"],
+          options: ["Larger context windows, since devices have more RAM available than typical GPU servers", "Small efficient models, quantization, and special chips (NPUs)", "Streaming connections that offload heavy computation to a nearby edge server", "Dense full-precision models, since NPUs are optimised for 32-bit floating point"],
           answer: 1,
           why: "Tight hardware demands small, quantized models and AI-accelerating chips.",
         },
@@ -127,13 +127,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is API serving?",
-          options: ["Running a model with no interface", "Exposing a model behind a web API that programs send requests to", "Training a model", "A quantization method"],
+          options: ["Packaging a model's weights into a file format that applications can load directly", "Exposing a model behind a web API that programs send requests to", "Continuously updating a model's weights based on live user feedback after launch", "Distributing a model across multiple servers so each handles a different type of query"],
           answer: 1,
           why: "It provides a callable web doorway so applications can send prompts and receive responses.",
         },
         {
           q: "Which is a key operational concern in API serving?",
-          options: ["Screen brightness", "Auth keys, rate limits, cost per token, latency, and error handling", "Font choice", "The model's colour"],
+          options: ["Prompt length only — the model's quality is fixed and all other concerns are handled by the provider", "Auth keys, rate limits, cost per token, latency, and error handling", "Choosing the right quantization format before exposing the API endpoint", "Matching the model's training language to the language of incoming requests"],
           answer: 1,
           why: "Real products must manage keys, limits, cost, speed, and failures — not just the model.",
         },
@@ -172,7 +172,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What are cloud GPUs?",
-          options: ["Free graphics for games", "Powerful GPU machines you rent over the internet by the hour", "A type of model", "On-device chips"],
+          options: ["On-premises GPU servers managed remotely by a hosting provider on your behalf", "Powerful GPU machines you rent over the internet by the hour", "A shared GPU pool where several users train on the same hardware simultaneously", "Virtual machines with emulated GPU support for testing code before real hardware"],
           answer: 1,
           why: "They let you rent serious hardware pay-as-you-go instead of buying it.",
         },
@@ -217,13 +217,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is edge AI?",
-          options: ["AI only in big data centers", "Running AI on or near the device where data is created", "A training method", "A quantization format"],
+          options: ["AI deployed on regional cloud servers to reduce latency for geographically distant users", "Running AI on or near the device where data is created", "A distributed training method that spreads work across many small machines", "A technique for compressing models to run on devices with limited connectivity"],
           answer: 1,
           why: "Edge AI processes data near its source rather than sending it to a distant cloud.",
         },
         {
           q: "Why choose edge AI for real-time tasks?",
-          options: ["It's slower", "No cloud round-trip means faster, more reliable, private decisions", "It needs more bandwidth", "It uses bigger models"],
+          options: ["It offloads computation to a nearby server, reducing the device's power consumption", "No cloud round-trip means faster, more reliable, private decisions", "It uses larger models than cloud AI because the device handles preprocessing first", "It streams results progressively so the user sees output before inference is complete"],
           answer: 1,
           why: "Processing locally avoids network delays and keeps working even if connectivity drops.",
         },

@@ -233,10 +233,26 @@
   }
 
   // ---------- quiz ----------
+  // Deterministic shuffle keyed by topicId + question index so saved
+  // answer indices survive page reloads (same topic → same order always).
+  function shuffleOpts(q, topicId, qi) {
+    let seed = 0;
+    for (let i = 0; i < topicId.length; i++) seed = (seed * 31 + topicId.charCodeAt(i)) | 0;
+    seed ^= (qi + 1) * 2654435761;
+    const idx = [0, 1, 2, 3];
+    for (let i = 3; i > 0; i--) {
+      seed = (seed * 1664525 + 1013904223) | 0;
+      const j = Math.abs(seed) % (i + 1);
+      [idx[i], idx[j]] = [idx[j], idx[i]];
+    }
+    return { options: idx.map(i => q.options[i]), answer: idx.indexOf(q.answer) };
+  }
+
   function renderQuiz(t) {
     const saved = quizState[t.id] || {};
     return '<div class="quiz">' + t.quiz.map((q, qi) => {
-      const opts = q.options.map((o, oi) =>
+      const sh = shuffleOpts(q, t.id, qi);
+      const opts = sh.options.map((o, oi) =>
         '<button class="opt" data-q="' + qi + '" data-o="' + oi + '">' +
         '<span class="key">' + "ABCD".charAt(oi) + "</span><span>" + o + "</span></button>"
       ).join("");
@@ -251,16 +267,17 @@
     const saved = quizState[t.id] || {};
     root.querySelectorAll(".qcard").forEach((card, qi) => {
       const q = t.quiz[qi];
+      const sh = shuffleOpts(q, t.id, qi);
       const opts = card.querySelectorAll(".opt");
       const fb = card.querySelector(".qfeedback");
       const reveal = (chosen) => {
         opts.forEach((opt, oi) => {
           opt.disabled = true;
-          if (oi === q.answer) opt.dataset.state = "correct";
+          if (oi === sh.answer) opt.dataset.state = "correct";
           else if (oi === chosen) opt.dataset.state = "chosen-wrong";
           else opt.dataset.state = "dim";
         });
-        const right = chosen === q.answer;
+        const right = chosen === sh.answer;
         fb.className = "qfeedback show " + (right ? "ok" : "gentle");
         fb.innerHTML = '<span class="lead">' + (right ? "Yes — that's it. " : "Good try. ") + "</span>" + (q.why || "");
       };

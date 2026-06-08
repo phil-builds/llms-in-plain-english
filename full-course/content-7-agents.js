@@ -37,7 +37,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "Why try prompt engineering first?",
-          options: ["It's expensive but thorough", "It's free, fast, and often beats fancier techniques", "It retrains the model", "It needs a GPU"],
+          options: ["It produces more consistent results than fine-tuning on task-specific data", "It's free, fast, and often beats fancier techniques", "It adjusts the model's weights to match the new task without extra data", "It works best after fine-tuning because it has more parameters to guide"],
           answer: 1,
           why: "Better prompts cost nothing and frequently solve the problem without any training.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a system prompt?",
-          options: ["The user's first question", "Standing instructions at the top that shape the model's behaviour all session", "A type of GPU", "A dataset"],
+          options: ["The first message in the user turn, which sets the initial task for the model", "Standing instructions at the top that shape the model's behaviour all session", "A fine-tuning technique that locks in a persona by adjusting the model's weights", "A tool-calling schema that defines the available functions for the session"],
           answer: 1,
           why: "It's the persistent role/tone/rules instruction that governs every reply in the conversation.",
         },
         {
           q: "What's a key advantage of a system prompt?",
-          options: ["It retrains the model", "It sets behaviour once instead of repeating instructions every message", "It adds parameters", "It speeds the GPU"],
+          options: ["It fine-tunes the model so its default style matches the desired persona permanently", "It sets behaviour once instead of repeating instructions every message", "It improves output quality by compressing the conversation history automatically", "It expands the context window so more history fits without pushing old messages out"],
           answer: 1,
           why: "Being persistent, it defines behaviour a single time for the whole session.",
         },
@@ -128,13 +128,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "In tool calling, who actually runs the tool?",
-          options: ["The model itself", "Your code, after the model requests it; the result is fed back", "The user manually", "Nobody"],
+          options: ["The model itself, using a sandboxed interpreter embedded in the API", "Your code, after the model requests it; the result is fed back", "The user, who receives the structured request and runs the tool manually", "A separate tool-running model that executes the function and returns the output"],
           answer: 1,
           why: "The model emits a structured request; your code executes the tool and returns the result.",
         },
         {
           q: "Why is tool calling so important?",
-          options: ["It makes models smaller", "It lets a text-only model take actions and access live, accurate data", "It removes the need for prompts", "It quantizes the model"],
+          options: ["It improves the model's reasoning by letting it verify its own chain of thought", "It lets a text-only model take actions and access live, accurate data", "It reduces hallucinations by making the model reconsider each answer twice", "It extends the model's context so it can process longer documents in one pass"],
           answer: 1,
           why: "Tools give the model hands — real actions and current information instead of guesses.",
         },
@@ -173,13 +173,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is function calling?",
-          options: ["A way to train models", "The structured (usually JSON) format a model uses to request a tool reliably", "A type of GPU", "A dataset format"],
+          options: ["A programming technique where code is passed as a parameter to another function", "The structured (usually JSON) format a model uses to request a tool reliably", "A natural-language description the model generates to explain which tool it chose", "A validation step that checks the model's output for harmful content before returning it"],
           answer: 1,
           why: "It's the machine-readable mechanism — name plus arguments — that makes tool use dependable.",
         },
         {
           q: "How do tool calling and function calling relate?",
-          options: ["They're opposites", "Tool calling is the concept; function calling is the structured mechanism for it", "They're unrelated", "Function calling replaced tools"],
+          options: ["Tool calling and function calling are competing API standards from different providers", "Tool calling is the concept; function calling is the structured mechanism for it", "They refer to the same thing — the terms are used interchangeably across all platforms", "Function calling is a broader idea; tool calling is one specific implementation of it"],
           answer: 1,
           why: "Function calling is the reliable, structured way most systems implement tool calling.",
         },
@@ -218,13 +218,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What makes an AI agent different from a chatbot?",
-          options: ["It's smaller", "It pursues a goal by looping: think, act with tools, observe, repeat", "It can't use tools", "It only answers once"],
+          options: ["It uses a larger model with more parameters than a typical chat system", "It pursues a goal by looping: think, act with tools, observe, repeat", "It generates multiple response candidates and selects the best one automatically", "It can access training data directly to look up accurate facts on demand"],
           answer: 1,
           why: "Agents autonomously plan and act in a loop toward a goal, using tools and adapting.",
         },
         {
           q: "Which guardrail matters most for agents?",
-          options: ["A nicer font", "Limits like max steps/budget and human checks for risky actions", "More parameters", "A bigger context window only"],
+          options: ["A larger base model, since smarter agents are inherently less likely to loop or err", "Limits like max steps/budget and human checks for risky actions", "A broader tool set so the agent can handle unexpected situations independently", "A long system prompt listing every situation the agent might encounter"],
           answer: 1,
           why: "Without limits and oversight, agents can loop forever, overspend, or take harmful actions.",
         },
@@ -263,7 +263,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is an agentic workflow?",
-          options: ["A single chat message", "A designed sequence of focused AI steps to accomplish a bigger task", "A GPU setting", "A dataset"],
+          options: ["A fully autonomous agent left to decompose and solve any task without structure", "A designed sequence of focused AI steps to accomplish a bigger task", "A multi-model pipeline where each model is a different size and speciality", "A prompt template that breaks complex instructions into numbered sub-tasks"],
           answer: 1,
           why: "It breaks a task into clear AI steps with checks, trading some autonomy for reliability.",
         },
@@ -308,7 +308,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a multi-agent system?",
-          options: ["One huge model", "Several specialised agents with roles working together on a task", "A dataset of agents", "A GPU cluster"],
+          options: ["A single large model running multiple reasoning chains in parallel before merging them", "Several specialised agents with roles working together on a task", "A fine-tuning method that merges many task-specific adapters into one model", "A serving architecture that routes requests to different model sizes by difficulty"],
           answer: 1,
           why: "It's a team of role-specialised agents collaborating, like a small company.",
         },
@@ -353,13 +353,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What problem does MCP solve?",
-          options: ["Makes models bigger", "Provides a standard interface so tools can be built once and used by any compatible model", "Replaces function calling entirely", "Speeds up training"],
+          options: ["Reduces hallucinations by verifying tool outputs before passing them to the model", "Provides a standard interface so tools can be built once and used by any compatible model", "Replaces function calling by handling all tool requests inside the protocol itself", "Speeds up inference by caching tool responses and reusing them across sessions"],
           answer: 1,
           why: "MCP is a standard protocol — like USB — so tools don't need custom wiring for each model or app.",
         },
         {
           q: "What can an MCP server expose?",
-          options: ["Only images", "Tools, resources, and prompts — callable and readable by any connected model", "Just chat history", "GPU settings"],
+          options: ["Only function schemas — resources and prompts must be handled by a separate protocol", "Tools, resources, and prompts — callable and readable by any connected model", "Only read-only resources, since MCP doesn't support functions with side effects", "Configuration files that tell the model which external APIs are safe to query"],
           answer: 1,
           why: "MCP servers can offer functions to call, data to read, and prompt templates — all over one standard interface.",
         },
@@ -398,13 +398,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is a browser agent?",
-          options: ["A web browser with ads removed", "An AI agent that controls a browser to do tasks on real websites", "A faster internet plan", "A dataset of web pages"],
+          options: ["A lightweight model embedded in the browser to suggest completions as you type", "An AI agent that controls a browser to do tasks on real websites", "A web scraper that downloads page HTML for an LLM to process offline in batches", "A browser extension that summarises pages and answers questions about their content"],
           answer: 1,
           why: "It applies the agent loop to a browser — reading, clicking, and navigating like a person.",
         },
         {
           q: "Why are browser agents especially risky?",
-          options: ["They use no tools", "Sites change/break them and they may hit logins or payments — needing guardrails", "They can't read pages", "They're always offline"],
+          options: ["They generate too many tokens, making them the most expensive agent type to run", "Sites change/break them and they may hit logins or payments — needing guardrails", "They lack the ability to observe results, so they can't adapt mid-task like other agents", "They require a specialised fine-tuned model that general-purpose LLMs can't replace"],
           answer: 1,
           why: "Fragile, changing websites plus sensitive actions make sandboxing and human checks essential.",
         },

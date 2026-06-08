@@ -43,7 +43,7 @@ window.COURSE.push({
         },
         {
           q: "Which pieces typically surround the model in a chatbot?",
-          options: ["Nothing — just the model", "System prompt, history, optional RAG and tools, plus limits", "Only a GPU", "Only a dataset"],
+          options: ["Only the model and the user's message — everything else adds unnecessary complexity", "System prompt, history, optional RAG and tools, plus limits", "Only a fine-tuned model, since base models can't hold a consistent persona", "Only the model and a vector database — all context should come from retrieved documents"],
           answer: 1,
           why: "The product is the model plus its system prompt, memory, retrieval, tools, and guardrails.",
         },
@@ -82,7 +82,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "How does a copilot differ from a chatbot?",
-          options: ["It's slower", "It's embedded in your tool and assists in-context as you work", "It can't use models", "It replaces the user entirely"],
+          options: ["It proactively completes entire tasks autonomously without waiting for user input", "It's embedded in your tool and assists in-context as you work", "It operates in a separate panel so the user's workspace stays uncluttered", "It has broader access to external tools than a chatbot and can execute actions directly"],
           answer: 1,
           why: "Copilots help in place, aware of your current work, rather than in a separate chat window.",
         },
@@ -127,7 +127,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the basic shape of an AI automation?",
-          options: ["A single chat message", "Trigger → AI process → action, for a recurring task", "Training a model", "A benchmark"],
+          options: ["A persistent agent that monitors a dashboard and responds to any change it detects", "Trigger → AI process → action, for a recurring task", "A fine-tuned model trained on historical examples of the task being automated", "A user-facing chatbot configured to handle a specific category of inbound requests"],
           answer: 1,
           why: "Automations respond to a trigger, process with AI, and take an action — an agentic workflow for a recurring job.",
         },
@@ -172,13 +172,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What extra concern is critical for AI SaaS versus normal software?",
-          options: ["Font choice", "Costs scale with usage, so pricing and limits must fit token economics", "Nothing is different", "Only the logo"],
+          options: ["Output quality variance — AI results differ per run, which normal software doesn't do", "Costs scale with usage, so pricing and limits must fit token economics", "Latency — AI responses are always slower than database lookups, requiring async design", "Model versioning — providers deprecate models, so AI SaaS must handle migrations regularly"],
           answer: 1,
           why: "Unlike flat-cost software, AI usage drives variable token costs, so pricing must account for it.",
         },
         {
           q: "What's the right mindset for an AI product?",
-          options: ["The model is the entire product", "AI is a feature solving a real problem, wrapped in solid product engineering", "Ignore privacy", "Charge nothing"],
+          options: ["The model is the entire product — a better model automatically makes a better product", "AI is a feature solving a real problem, wrapped in solid product engineering", "The product should expose the model directly so power users can tweak its behaviour", "The engineering layer is secondary; what matters is prompt quality and model selection"],
           answer: 1,
           why: "A sustainable product surrounds the model with accounts, privacy, reliability, billing, and trust.",
         },
@@ -223,7 +223,7 @@ window.COURSE.push({
         },
         {
           q: "How should you treat an AI coding assistant?",
-          options: ["As an infallible expert", "As a fast junior developer who needs clear tasks and supervision", "As a replacement for testing", "As a database"],
+          options: ["As a senior engineer whose output can be deployed without review on well-scoped tasks", "As a fast junior developer who needs clear tasks and supervision", "As a reliable peer reviewer who catches more bugs than you would manually", "As a stateless tool that applies the same transformation every time it sees the same code"],
           answer: 1,
           why: "It accelerates work but needs context, review, and tests — you stay the senior engineer.",
         },
@@ -262,13 +262,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is AI orchestration?",
-          options: ["Training one model", "Coordinating multiple AI components, tools, and steps into one reliable system", "A quantization method", "A benchmark"],
+          options: ["Fine-tuning a single model on task examples so it handles the full pipeline itself", "Coordinating multiple AI components, tools, and steps into one reliable system", "A prompt engineering technique for breaking complex instructions into sequential sub-tasks", "A deployment pattern where one large model routes requests to specialised downstream models"],
           answer: 1,
           why: "Orchestration is the conductor that manages flow, failures, and coordination across many parts.",
         },
         {
           q: "Which is an orchestration concern?",
-          options: ["Screen colour", "Error handling, logging, cost control, and data flow between steps", "Font size", "The model's name"],
+          options: ["Selecting the best embedding model to maximise retrieval quality across all pipeline steps", "Error handling, logging, cost control, and data flow between steps", "Minimising the number of models used so the system is easier to fine-tune as a whole", "Batching all API calls into a single request to reduce round-trips and total latency"],
           answer: 1,
           why: "Holding many parts together reliably means managing failures, visibility, cost, and routing.",
         },
@@ -313,7 +313,7 @@ window.COURSE.push({
         },
         {
           q: "Why is planning for the AI being wrong essential?",
-          options: ["It never happens", "Models will make mistakes, so real products must handle failure gracefully", "It increases tokens", "It's only about speed"],
+          options: ["It happens rarely enough that it can be treated as an edge case in error logs", "Models will make mistakes, so real products must handle failure gracefully", "Handling it correctly improves benchmark scores, which validates the product's quality", "It affects latency, so designing for it helps meet performance SLAs in production"],
           answer: 1,
           why: "Since models can be confidently wrong, trustworthy products design for failure cases up front.",
         },

@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What problem does the KV cache solve?",
-          options: ["Models forgetting facts", "Re-processing the whole history for every new token", "Slow internet", "Large file downloads"],
+          options: ["Each new token requiring a separate API call to the server", "Re-processing the whole history for every new token", "Storing all past tokens in raw memory until the context fills", "Calculating attention scores twice per layer for reliability"],
           answer: 1,
           why: "It stores past intermediate results so each new token reuses them instead of recomputing everything.",
         },
         {
           q: "What's the main cost of the KV cache?",
-          options: ["It changes the answers", "It uses memory that grows with conversation length", "It needs the internet", "It deletes tokens"],
+          options: ["It changes the order in which tokens are processed", "It uses memory that grows with conversation length", "It improves output quality by re-ranking candidate tokens", "It compresses past tokens into a fixed-size summary vector"],
           answer: 1,
           why: "The cache lives in VRAM and grows with context, so long chats use more memory.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does Flash Attention change?",
-          options: ["The model's answers", "How attention is computed — faster and more memory-efficient, same result", "The training data", "The token count"],
+          options: ["Which tokens the model attends to on each forward pass", "How attention is computed — faster and more memory-efficient, same result", "How many attention heads the model uses per layer", "The order in which transformer layers are processed during inference"],
           answer: 1,
           why: "It reorganises the attention math to be faster and use less memory, with identical output.",
         },
         {
           q: "What's a practical benefit of enabling it?",
-          options: ["Worse quality", "Faster runs and support for longer contexts at no quality cost", "Smaller datasets", "More hallucinations"],
+          options: ["Improved output quality by reordering how tokens are scored", "Faster runs and support for longer contexts at no quality cost", "A smaller effective context window to reduce memory pressure", "A longer warm-up period before the first response is generated"],
           answer: 1,
           why: "It speeds things up and enables longer contexts without changing the result.",
         },
@@ -127,13 +127,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "How does speculative decoding speed things up?",
-          options: ["It skips checking entirely", "A small model proposes several tokens; the big model verifies them at once", "It deletes the cache", "It lowers resolution"],
+          options: ["The big model generates a draft; a smaller model then scores and filters each token", "A small model proposes several tokens; the big model verifies them at once", "Both models run simultaneously and the faster one's output is used", "The big model skips layers when the input tokens are short"],
           answer: 1,
           why: "A fast draft model guesses ahead and the big model verifies in one pass, accepting correct guesses.",
         },
         {
           q: "What happens to output quality?",
-          options: ["It gets worse", "It's identical — the big model always verifies and has final say", "It becomes random", "It loses tokens"],
+          options: ["It improves slightly because the small model adds diverse candidate tokens", "It's identical — the big model always verifies and has final say", "It varies by task — creative tasks improve but factual tasks may degrade", "It degrades slightly because rejected tokens introduce noise into the context"],
           answer: 1,
           why: "The main model verifies everything, so the result matches running it alone.",
         },
@@ -172,13 +172,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is the goal of inference optimization?",
-          options: ["Retrain the model to be smarter", "Make the existing model respond faster and cheaper", "Collect more data", "Add parameters"],
+          options: ["Fine-tune the model on domain data so it needs fewer tokens to answer", "Make the existing model respond faster and cheaper", "Increase batch size during the original training run to build in efficiency", "Add more attention heads to help the model skip irrelevant context"],
           answer: 1,
           why: "It improves how a fixed model is run, not the model's knowledge itself.",
         },
         {
           q: "What should you do before optimising?",
-          options: ["Buy more GPUs immediately", "Measure to find the real bottleneck", "Delete the cache", "Switch off attention"],
+          options: ["Apply every available optimisation technique to cover all possible bottlenecks", "Measure to find the real bottleneck", "Switch to a newer model architecture that is inherently faster", "Reduce the context window so fewer tokens are processed per request"],
           answer: 1,
           why: "Measure first so you optimise the actual slow part rather than guessing.",
         },
@@ -217,13 +217,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is model serving?",
-          options: ["Training a model", "Running a model as a live service that takes requests and returns answers", "Cleaning data", "Quantizing weights"],
+          options: ["Packaging a model's weights into a compressed file for distribution", "Running a model as a live service that takes requests and returns answers", "Evaluating a model's accuracy on a held-out benchmark dataset", "Adapting a pre-trained model's parameters for a specific downstream task"],
           answer: 1,
           why: "Serving turns a static model file into a reliable, callable service, usually via an API.",
         },
         {
           q: "What's the hard part of serving compared to running once?",
-          options: ["Picking a colour", "Handling many concurrent requests reliably with batching and caching", "Naming the file", "Counting tokens"],
+          options: ["Loading the model's weights accurately from disk into GPU memory", "Handling many concurrent requests reliably with batching and caching", "Choosing the right quantization format before deployment", "Splitting the model across multiple files to reduce load time"],
           answer: 1,
           why: "Concurrency, reliability, and efficient resource use under load are the real challenges.",
         },
@@ -262,13 +262,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What is batch inference?",
-          options: ["Training in batches", "Processing many requests together in one parallel pass", "Deleting old requests", "Running on CPU only"],
+          options: ["Splitting a single long request into smaller chunks to process sequentially", "Processing many requests together in one parallel pass", "Caching the model's output so repeated identical prompts skip inference entirely", "Running each request on a dedicated GPU thread to avoid queue delays"],
           answer: 1,
           why: "Batching handles multiple requests simultaneously, using the GPU's parallelism efficiently.",
         },
         {
           q: "What's the trade-off of larger batches?",
-          options: ["Lower throughput", "Higher throughput but a request may wait for the batch to fill (more latency)", "Worse model quality", "More hallucinations"],
+          options: ["Lower throughput, because more GPU cycles are spent on coordination overhead", "Higher throughput but a request may wait for the batch to fill (more latency)", "Improved output quality, since the model can cross-reference answers within the batch", "Reduced memory use, because requests share the same KV cache during the batch"],
           answer: 1,
           why: "Bigger batches raise total throughput but can add latency for individual requests.",
         },
@@ -307,13 +307,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "Why are GPUs good for AI?",
-          options: ["They have faster internet", "They do thousands of calculations in parallel, matching AI's math", "They store more files", "They use less electricity always"],
+          options: ["They have faster memory buses that reduce data transfer bottlenecks for large models", "They do thousands of calculations in parallel, matching AI's math", "They use lower-precision arithmetic that CPUs are unable to perform at all", "They can hold an entire model in on-chip cache, avoiding main memory latency"],
           answer: 1,
           why: "AI math is massively parallel, which is exactly what GPUs are built for.",
         },
         {
           q: "How does a CPU differ from a GPU here?",
-          options: ["CPU is always better for AI", "CPU = a few workers in sequence; GPU = many workers in parallel", "They're identical", "CPU has more memory always"],
+          options: ["CPUs are faster per core, so for small models they outperform GPUs on latency", "CPU = a few workers in sequence; GPU = many workers in parallel", "They perform the same operations at the same speed on the same data types", "CPUs handle floating-point math more accurately, which matters for inference"],
           answer: 1,
           why: "CPUs excel at sequential tasks; GPUs excel at doing many similar operations at once.",
         },
@@ -352,13 +352,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "Why does VRAM often decide what you can run?",
-          options: ["It controls internet speed", "The model and its working data must fit in VRAM or it won't run", "It stores your files", "It improves quality"],
+          options: ["It sets a hard cap on how many tokens the model can generate per second", "The model and its working data must fit in VRAM or it won't run", "It determines the precision of floating-point math the GPU performs", "It limits how many concurrent users a serving system can handle safely"],
           answer: 1,
           why: "If the model plus KV cache doesn't fit in the GPU's VRAM, it can't run on that GPU.",
         },
         {
           q: "How does quantization help with VRAM?",
-          options: ["It adds VRAM", "It shrinks the model so it fits in less VRAM", "It deletes the model", "It speeds the internet"],
+          options: ["It offloads part of the model to system RAM so the GPU processes it in smaller chunks", "It shrinks the model so it fits in less VRAM", "It increases the batch size so fewer passes are needed per request", "It compresses the KV cache between requests to free memory for the weights"],
           answer: 1,
           why: "Lower precision means a smaller memory footprint, letting bigger models fit smaller GPUs.",
         },
@@ -397,13 +397,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the core idea of latency vs quality trade-offs?",
-          options: ["You can always have everything", "Improving speed/cost often lowers quality, and vice versa — balance per job", "Quality never matters", "Latency is irrelevant"],
+          options: ["A well-optimised serving stack can improve speed without any quality trade-off", "Improving speed/cost often lowers quality, and vice versa — balance per job", "Quantization always improves latency while keeping quality identical to full precision", "Larger context windows reduce both latency and cost by allowing fewer requests"],
           answer: 1,
           why: "Latency, cost, and quality pull against each other; the right balance depends on the use case.",
         },
         {
           q: "How should you choose a model?",
-          options: ["Always the biggest one", "By what's good, fast, and cheap enough for the specific task", "By its name", "By its colour"],
+          options: ["By benchmark scores alone — a higher rank means better real-world results", "By what's good, fast, and cheap enough for the specific task", "By the number of parameters — more is always worth the extra inference cost", "By the training data size — more tokens trained on means fewer quality trade-offs"],
           answer: 1,
           why: "Match the trade-off to the job rather than chasing the abstractly “best” model.",
         },

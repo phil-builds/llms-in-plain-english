@@ -43,7 +43,7 @@ window.COURSE.push({
         },
         {
           q: "What caution applies to VLMs?",
-          options: ["They never make mistakes", "They can misread visual detail and hallucinate, so verify", "They can't read text", "They use no tokens"],
+          options: ["They hallucinate text but are reliably accurate when reading information from images", "They can misread visual detail and hallucinate, so verify", "They can describe images but cannot answer questions that require reasoning about them", "They consume fewer tokens than text-only models because images compress naturally"],
           answer: 1,
           why: "Like text models, VLMs can be confidently wrong — especially on fine visual detail.",
         },
@@ -82,13 +82,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's a main advantage of SLMs?",
-          options: ["They always beat big models", "Fast, cheap, run on modest hardware, and keep data local", "They need no data", "They can't be fine-tuned"],
+          options: ["Higher accuracy on complex tasks because focused training prevents overfitting", "Fast, cheap, run on modest hardware, and keep data local", "No need for a system prompt since small models follow simple instructions reliably", "Better long-context handling because fewer parameters means less attention overhead"],
           answer: 1,
           why: "Small models are practical: low cost, high speed, local/private, and often good enough.",
         },
         {
           q: "When might an SLM match a much larger model?",
-          options: ["Never", "On a focused task, especially after fine-tuning", "Only for images", "Only in the cloud"],
+          options: ["Very rarely — larger models nearly always produce better output on every task type", "On a focused task, especially after fine-tuning", "On tasks that require reasoning, since small models can't do chain-of-thought", "Only when serving many concurrent users where throughput matters more than quality"],
           answer: 1,
           why: "For a narrow, well-defined task, a fine-tuned small model can rival far larger ones.",
         },
@@ -127,13 +127,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What defines a dense model?",
-          options: ["It uses only some parameters per token", "Every parameter is used for every token", "It has no parameters", "It only handles images"],
+          options: ["It uses only a selected subset of its parameters for each token it processes", "Every parameter is used for every token", "It activates different layers depending on the difficulty of the current token", "It routes tokens to specialised sub-networks based on their semantic category"],
           answer: 1,
           why: "In a dense model the whole network activates for each token processed.",
         },
         {
           q: "What's the downside of dense models at large size?",
-          options: ["They can't learn", "Cost and speed scale with full size since all parameters fire each token", "They need no memory", "They can't be served"],
+          options: ["They plateau in quality early — scaling parameters beyond 7B brings diminishing returns", "Cost and speed scale with full size since all parameters fire each token", "They require more fine-tuning data than sparse models to reach the same quality", "They cannot take advantage of batching because each token activates different paths"],
           answer: 1,
           why: "Using every parameter per token makes big dense models proportionally expensive and slow.",
         },
@@ -172,7 +172,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "How does an MoE model work?",
-          options: ["It uses all experts every time", "A router picks a few experts per token, so only a slice runs", "It has one expert only", "It avoids parameters"],
+          options: ["The full model activates for every token, but in fewer layers than a dense equivalent", "A router picks a few experts per token, so only a slice runs", "Each expert independently generates a candidate token and the best answer is selected", "The router trains separately first, then the experts are attached and frozen"],
           answer: 1,
           why: "MoE activates a small subset of experts per token, giving capacity without full per-token cost.",
         },
@@ -217,13 +217,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What are coding models specialised for?",
-          options: ["Drawing images", "Writing, explaining, and debugging software", "Storing files", "Browsing the web"],
+          options: ["Answering general knowledge questions using real-time web access", "Writing, explaining, and debugging software", "Generating and editing images based on natural language instructions", "Benchmarking hardware performance across different software environments"],
           answer: 1,
           why: "They're trained with heavy emphasis on code to assist with programming tasks.",
         },
         {
           q: "What's the key caution with AI-written code?",
-          options: ["It's always perfect", "It can look right but be subtly wrong — read, test, and review it", "It can't be run", "It never compiles"],
+          options: ["Coding-specific models are fine-tuned for safety and produce correct code by default", "It can look right but be subtly wrong — read, test, and review it", "It writes correct logic but often uses deprecated syntax needing a quick update", "It generates working code but always omits error handling, which you must add manually"],
           answer: 1,
           why: "Like all model output, code can be confidently incorrect; verification is essential.",
         },
@@ -262,7 +262,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What defines a reasoning model?",
-          options: ["It answers instantly with no thought", "It works step by step before answering, using extra compute for accuracy", "It only handles images", "It never makes errors"],
+          options: ["It samples more candidate answers and picks the best one using a trained ranker", "It works step by step before answering, using extra compute for accuracy", "It uses a larger context window so it can reference more of the conversation history", "It trains for longer than standard models, giving it more practice on hard problems"],
           answer: 1,
           why: "Reasoning models spend more effort thinking through problems, helping on hard, multi-step tasks.",
         },

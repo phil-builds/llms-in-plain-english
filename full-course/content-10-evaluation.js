@@ -37,13 +37,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What are AI benchmarks?",
-          options: ["Marketing slogans", "Standardised tests with known answers used to score and compare models", "The number of parameters in a model", "A dataset format"],
+          options: ["Leaderboards ranked by user votes, where community preference determines the winner", "Standardised tests with known answers used to score and compare models", "Automated tools that profile a model's memory and compute usage during inference", "Internal company evaluations that are kept private to prevent competitors from tuning against them"],
           answer: 1,
           why: "Benchmarks measure model ability on fixed tasks so models can be compared numerically.",
         },
         {
           q: "What's the main caution with benchmarks?",
-          options: ["They're always wrong", "High scores don't guarantee a model fits your specific real task", "They can't be measured", "They replace all testing"],
+          options: ["They measure the same skills as real tasks, so scores transfer directly to production", "High scores don't guarantee a model fits your specific real task", "They are standardised enough that a top score reliably predicts fine-tuning success", "They're produced independently so no model provider can optimise against them"],
           answer: 1,
           why: "A model can score well yet underperform on your use case — your own task is the real test.",
         },
@@ -127,7 +127,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "How is AI API cost usually calculated?",
-          options: ["Per hour only", "Per token — input plus output, times the price and number of requests", "Per image always", "It's always free"],
+          options: ["Per API call regardless of length — each request costs a flat rate set by the provider", "Per token — input plus output, times the price and number of requests", "Per second of generation time, so faster models are always cheaper to use", "Per model version — newer models cost more even if the request length is the same"],
           answer: 1,
           why: "Bills are driven by tokens in and out, the model's price, and how many requests you make.",
         },
@@ -178,7 +178,7 @@ window.COURSE.push({
         },
         {
           q: "Why measure speed under realistic load?",
-          options: ["It looks professional", "A model fast for one request can slow down under real concurrency", "Load never matters", "To increase token cost"],
+          options: ["Providers throttle based on benchmark results, so accurate scores unlock higher rate limits", "A model fast for one request can slow down under real concurrency", "Single-request tests reflect worst-case performance, so you can set an upper bound on latency", "Benchmarking under load prevents the KV cache from warming up, giving a fairer baseline"],
           answer: 1,
           why: "Real usage involves many requests and realistic lengths, which can change performance a lot.",
         },
@@ -223,7 +223,7 @@ window.COURSE.push({
         },
         {
           q: "Why is your own eval set so valuable?",
-          options: ["It looks impressive", "It lets you compare models and catch regressions on the cases you care about", "It trains the model", "It reduces VRAM"],
+          options: ["It satisfies external auditors who require documented test coverage before deployment", "It lets you compare models and catch regressions on the cases you care about", "It accelerates fine-tuning by giving the model examples of your quality criteria directly", "It reduces hallucinations by filtering the model's outputs against a known-good reference set"],
           answer: 1,
           why: "A personal eval set turns subjective impressions into repeatable evidence and guards against quality drops.",
         },
