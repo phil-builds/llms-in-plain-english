@@ -1,4 +1,4 @@
-/* Part 2 — Datasets & Training */
+/* Part 2: Datasets & Training */
 window.COURSE.push({
   id: "datasets",
   title: "Datasets & Training",
@@ -11,17 +11,17 @@ window.COURSE.push({
       time: 5,
       tagline: "The “show, don't tell” data that teaches manners.",
       lesson:
-        "<p><span class='term'>SFT</span> stands for <b>Supervised Fine-Tuning</b>. A raw model fresh out of its first training knows a lot of language, but it's a bit feral — it just continues text. SFT is where we teach it to <b>behave like a helpful assistant</b>.</p>" +
+        "<p><span class='term'>SFT</span> stands for <b>Supervised Fine-Tuning</b>. A raw model fresh out of its first training knows a lot of language, but it's a bit feral: it just continues text. SFT is where we teach it to <b>behave like a helpful assistant</b>.</p>" +
         "<p>An SFT dataset is a big collection of <b>example pairs</b>: a prompt and the ideal response. “Supervised” just means each example comes with the right answer attached, like flashcards with the answer on the back.</p>" +
-        "<p>You show the model thousands of these — “here's a question, here's a good answer” — and it adjusts to imitate that style. This is how a model learns to follow instructions, stay polite, and structure replies, instead of rambling on.</p>" +
-        "<p>Quality matters enormously here. A few thousand <b>excellent</b> examples often beat a million mediocre ones. The model copies what you show it — including the bad habits.</p>",
+        "<p>You show the model thousands of these (“here's a question, here's a good answer”), and it adjusts to imitate that style. This is how a model learns to follow instructions, stay polite, and structure replies, instead of rambling on.</p>" +
+        "<p>Quality matters enormously here. A few thousand <b>excellent</b> examples often beat a million mediocre ones. The model copies what you show it, including the bad habits.</p>",
       analogy:
         "<p>Imagine training a new employee by handing them a binder of “here's a customer question, here's the perfect reply” examples. They read enough of these and start answering in that same helpful style. SFT is that binder for a model.</p>",
       mentalModel:
         "SFT is teaching by worked examples: prompt → ideal answer, repeated thousands of times until the model imitates the style.",
       mistakes: [
         "Chasing quantity over quality. Messy or low-effort examples teach messy, low-effort answers.",
-        "Including answers in a tone you don't actually want. The model copies tone, length, and format — not just facts.",
+        "Including answers in a tone you don't actually want. The model copies tone, length, and format, not just facts.",
         "Forgetting variety. If every example is one type of task, the model gets narrow and brittle.",
       ],
       exercise: {
@@ -29,7 +29,7 @@ window.COURSE.push({
         steps: [
           "Pick a job you'd want an assistant to do (e.g. “rewrite my messages politely”).",
           "Write 5 example pairs: a realistic input, and the ideal output you'd want.",
-          "Read them back as a set — is the style consistent? That consistency is what the model would learn.",
+          "Read them back as a set. Is the style consistent? That consistency is what the model would learn.",
           "Spot one weak example and improve it. You just did data quality control.",
         ],
         stretch: "Find an open SFT dataset on Hugging Face, open a few rows, and compare their structure to your hand-made one.",
@@ -39,7 +39,7 @@ window.COURSE.push({
           q: "What does an SFT dataset mainly contain?",
           options: ["Unlabelled text scraped from the web", "Prompt → ideal-answer example pairs", "Output quality scores with no reference answers", "Questions without any responses attached"],
           answer: 1,
-          why: "Supervised fine-tuning uses paired examples — a prompt and the desired response — like flashcards.",
+          why: "Supervised fine-tuning uses paired examples, a prompt and the desired response, like flashcards.",
         },
         {
           q: "What usually matters most in an SFT dataset?",
@@ -58,13 +58,13 @@ window.COURSE.push({
       lesson:
         "<p><span class='term'>Instruction tuning</span> is a specific, very important kind of SFT. The examples are all shaped as <b>instruction → response</b>: “Summarise this email,” “Translate this to French,” “Explain photosynthesis simply.”</p>" +
         "<p>This is the step that turns a base model (which only continues text) into a model that <b>does what you ask</b>. Almost every assistant you've used has been instruction-tuned.</p>" +
-        "<p>The trick is <b>diversity of instructions</b>. By showing the model thousands of <i>different kinds</i> of tasks, it learns the general skill of “read an instruction, then carry it out” — and can then handle instructions it never saw during training.</p>",
+        "<p>The trick is <b>diversity of instructions</b>. By showing the model thousands of <i>different kinds</i> of tasks, it learns the general skill of “read an instruction, then carry it out,” and can then handle instructions it never saw during training.</p>",
       analogy:
         "<p>It's the difference between someone who can talk endlessly about cooking and someone who actually makes the dish when you say “make me an omelette.” Instruction tuning teaches the model to act on the request, not just talk around it.</p>",
       mentalModel:
         "Instruction tuning = teaching the general skill of “follow the instruction,” by example, across many task types so it generalises to new ones.",
       mistakes: [
-        "Confusing a base model with an instruction-tuned one. Base models often ignore your request and just ramble — that's normal for them.",
+        "Confusing a base model with an instruction-tuned one. Base models often ignore your request and just ramble; that's normal for them.",
         "Training on too few task types, so the model only follows the kinds of instructions it saw.",
         "Assuming instruction tuning adds new knowledge. It mostly shapes <b>behaviour</b>, not facts.",
       ],
@@ -98,19 +98,19 @@ window.COURSE.push({
       id: "preference-datasets",
       title: "Preference datasets",
       time: 5,
-      tagline: "Not just a good answer — the better of two.",
+      tagline: "Not just a good answer, but the better of two.",
       lesson:
         "<p>SFT teaches the model <i>a</i> good answer. But often there are many acceptable answers, and some are clearly <b>better</b> than others. <span class='term'>Preference datasets</span> capture that.</p>" +
         "<p>Each example is a prompt plus <b>two responses</b>: a “chosen” one (better) and a “rejected” one (worse). A human (or sometimes another AI) judged which is better. The model later learns to lean toward the kind of answers people prefer.</p>" +
-        "<p>This is how models get their polish — being helpful <i>and</i> harmless <i>and</i> honest, picking the more useful phrasing, refusing the right things. It's less about “correct vs wrong” and more about “better vs worse” among reasonable options.</p>" +
+        "<p>This is how models get their polish: being helpful <i>and</i> harmless <i>and</i> honest, picking the more useful phrasing, refusing the right things. It's less about “correct vs wrong” and more about “better vs worse” among reasonable options.</p>" +
         "<p>Preference data powers techniques like <b>DPO</b> and <b>RLHF</b>, which you'll meet in the Fine-Tuning section. For now, just hold the shape: prompt, a winner, and a loser.</p>",
       analogy:
-        "<p>Think of a talent show. The judges don't just accept any performance — they compare two acts and say “this one was better.” Do that thousands of times and the contestants learn what the judges like. Preference data is those side-by-side judgements.</p>",
+        "<p>Think of a talent show. The judges don't just accept any performance; they compare two acts and say “this one was better.” Do that thousands of times and the contestants learn what the judges like. Preference data is those side-by-side judgements.</p>",
       mentalModel:
         "Preference data = prompt + a “chosen” answer + a “rejected” answer. It teaches better-vs-worse, not just right-vs-wrong.",
       mistakes: [
         "Thinking the rejected answer must be terrible. Often both are fine; one is just <b>better</b>, and that subtlety is the point.",
-        "Using inconsistent judges, so “better” means different things in different rows — confusing the model.",
+        "Using inconsistent judges, so “better” means different things in different rows, confusing the model.",
         "Believing preference tuning teaches facts. Like SFT, it mostly shapes <b>which kind of answer</b> the model gravitates to.",
       ],
       exercise: {
@@ -147,12 +147,12 @@ window.COURSE.push({
       lesson:
         "<p>Good training data is expensive and slow to collect from humans. <span class='term'>Synthetic data</span> is a shortcut: you use a capable AI model to <b>generate the examples</b> instead.</p>" +
         "<p>For instance, you might prompt a strong model: “Write 500 customer-support questions and ideal answers in a friendly tone.” Now you have an SFT dataset in minutes, not months. This is increasingly how modern models are trained and improved.</p>" +
-        "<p>The upside is speed, scale, and control — you can target exactly the skills you want. The danger is that the data is only as good as the model that made it. Errors, biases, and blandness can get copied and amplified.</p>" +
+        "<p>The upside is speed, scale, and control: you can target exactly the skills you want. The danger is that the data is only as good as the model that made it. Errors, biases, and blandness can get copied and amplified.</p>" +
         "<p>The sweet spot is usually <b>synthetic data with human checking</b>: let AI draft at scale, then have people review, filter, and fix. Quantity from the machine, quality control from the human.</p>",
       analogy:
-        "<p>It's like using a photocopier to make study notes instead of writing each by hand. Fast and scalable — but if the original has a typo, you've just printed a thousand copies of it. So you proofread the master first.</p>",
+        "<p>It's like using a photocopier to make study notes instead of writing each by hand. Fast and scalable, but if the original has a typo, you've just printed a thousand copies of it. So you proofread the master first.</p>",
       mentalModel:
-        "Synthetic data = AI-generated training examples. Fast and scalable, but it inherits the flaws of the model that made it — so review before you trust.",
+        "Synthetic data = AI-generated training examples. Fast and scalable, but it inherits the flaws of the model that made it, so review before you trust.",
       mistakes: [
         "Trusting synthetic data blindly. It can carry the generator's mistakes and biases straight into your new model.",
         "Generating thousands of near-identical examples (low diversity), which teaches a narrow, repetitive model.",
@@ -179,7 +179,7 @@ window.COURSE.push({
           q: "What's the main risk of synthetic data?",
           options: ["It's more expensive to produce at scale than human annotation", "It inherits the generating model's errors, biases, and blandness", "Inconsistent formatting in generated examples can break training", "Models trained on it tend to overfit to the synthetic distribution"],
           answer: 1,
-          why: "The data is only as good as the model that produced it, so flaws get copied — review matters.",
+          why: "The data is only as good as the model that produced it, so flaws get copied; review matters.",
         },
       ],
     },
@@ -188,13 +188,13 @@ window.COURSE.push({
       id: "data-curation",
       title: "Data curation",
       time: 4,
-      tagline: "Choosing what goes in — the quiet skill that decides everything.",
+      tagline: "Choosing what goes in: the quiet skill that decides everything.",
       lesson:
         "<p><span class='term'>Data curation</span> is the craft of <b>deciding which data to include, exclude, and emphasise</b>. It's less glamorous than the model architecture, but it often matters more for the final result.</p>" +
         "<p>Curation means asking: Is this example accurate? Is it representative of what users will actually ask? Is it diverse enough? Is it free of harmful or duplicated content? Then keeping the good, cutting the bad, and balancing the mix.</p>" +
-        "<p>A famous rule of thumb in this field: <b>garbage in, garbage out</b>. The model has no taste of its own — it faithfully absorbs whatever you feed it. Curation is where human judgement shapes the model's character.</p>",
+        "<p>A famous rule of thumb in this field: <b>garbage in, garbage out</b>. The model has no taste of its own; it faithfully absorbs whatever you feed it. Curation is where human judgement shapes the model's character.</p>",
       analogy:
-        "<p>Think of curating a museum. You don't hang every painting you own — you choose the best, arrange a balanced collection, and leave out the forgeries. Data curation is curating the “collection” a model learns from.</p>",
+        "<p>Think of curating a museum. You don't hang every painting you own; you choose the best, arrange a balanced collection, and leave out the forgeries. Data curation is curating the “collection” a model learns from.</p>",
       mentalModel:
         "Curation is taste applied to data: keep the accurate, representative, and diverse; cut the wrong, duplicated, and harmful. The model becomes what you select.",
       mistakes: [
@@ -221,7 +221,7 @@ window.COURSE.push({
         },
         {
           q: "Why is curation so important?",
-          options: ["Large uncurated datasets take significantly longer to train on", "The model absorbs whatever you feed it — garbage in, garbage out", "Without curation, the model learns only from the most recent examples", "Uncurated data forces the tokenizer to generate more tokens per sentence"],
+          options: ["Large uncurated datasets take significantly longer to train on", "The model absorbs whatever you feed it: garbage in, garbage out", "Without curation, the model learns only from the most recent examples", "Uncurated data forces the tokenizer to generate more tokens per sentence"],
           answer: 1,
           why: "Models have no taste of their own; the quality of the data directly shapes the result.",
         },
@@ -244,7 +244,7 @@ window.COURSE.push({
       mistakes: [
         "Leaving in duplicates, which quietly over-train the model on repeated text.",
         "Forgetting to strip personal/private data, which can leak into the model's outputs.",
-        "Over-cleaning until the data is bland and unrealistic — keep some natural messiness users will actually produce.",
+        "Over-cleaning until the data is bland and unrealistic. Keep some natural messiness users will actually produce.",
       ],
       exercise: {
         goal: "Run a cleaning pass by hand.",
@@ -252,7 +252,7 @@ window.COURSE.push({
           "Take a list of ~20 short text entries (copy some forum posts or messages).",
           "Find and remove exact duplicates and near-duplicates.",
           "Strip out any leftover formatting junk, and redact anything personal.",
-          "Count how many entries survived. That shrink is normal — and healthy.",
+          "Count how many entries survived. That shrink is normal, and healthy.",
         ],
         stretch: "Add a toxicity filter step: read for anything you wouldn't want a model repeating, and remove it. Note how subjective “toxic” can be.",
       },
@@ -280,14 +280,14 @@ window.COURSE.push({
       lesson:
         "<p>Models expect data in a <b>specific structure</b>. <span class='term'>Formatting</span> is arranging your cleaned examples into that exact shape so the training tool can read them.</p>" +
         "<p>For chat models, this usually means a list of <b>roles and messages</b>: a system message (the model's instructions), a user message, and an assistant message. Each example is one of these little conversations, often stored as JSON or JSONL (one JSON object per line).</p>" +
-        "<p>There's also the <b>chat template</b> — special tokens or tags that mark where the user's turn ends and the assistant's begins. Each model family has its own template, and using the wrong one is a classic reason fine-tuning “mysteriously” fails.</p>" +
-        "<p>Good news: tools like the ones you'll learn later (Axolotl, TRL, Unsloth) handle most templating for you — as long as your raw data is in the expected role/message shape.</p>",
+        "<p>There's also the <b>chat template</b>: special tokens or tags that mark where the user's turn ends and the assistant's begins. Each model family has its own template, and using the wrong one is a classic reason fine-tuning “mysteriously” fails.</p>" +
+        "<p>Good news: tools like the ones you'll learn later (Axolotl, TRL, Unsloth) handle most templating for you, as long as your raw data is in the expected role/message shape.</p>",
       analogy:
         "<p>Think of a job application form. The content is your experience, but if you write your name in the “email” box, the system rejects it. Formatting is filling the right content into the right boxes, in the shape the system expects.</p>",
       mentalModel:
         "Formatting = pouring clean data into the model's required shape (roles, messages, chat template). Right content, wrong boxes = failure.",
       mistakes: [
-        "Using the wrong chat template for the model — a top cause of broken or weird fine-tunes.",
+        "Using the wrong chat template for the model, a top cause of broken or weird fine-tunes.",
         "Mixing inconsistent formats across rows, so the tool can't parse some examples.",
         "Forgetting the system message when your task depends on a consistent persona or rules.",
       ],
@@ -297,7 +297,7 @@ window.COURSE.push({
           "Take one prompt/answer pair you wrote earlier.",
           "Rewrite it as three labelled parts: system (the rules), user (the prompt), assistant (the answer).",
           "Now write it as a JSON object with a “messages” list of those three.",
-          "Read it back — could a tool unambiguously tell who said what? If yes, it's well-formatted.",
+          "Read it back. Could a tool unambiguously tell who said what? If yes, it's well-formatted.",
         ],
         stretch: "Look up the chat template for one open model (it's usually in its files on Hugging Face) and note the special tokens it uses.",
       },
@@ -324,15 +324,15 @@ window.COURSE.push({
       tagline: "Teaching an existing model a new specialty.",
       lesson:
         "<p><span class='term'>Fine-tuning</span> means taking an already-trained model and giving it a <b>small, focused round of extra training</b> on your own data, so it gets better at a specific task or style.</p>" +
-        "<p>You don't start from scratch (that costs millions). You start from a capable model that already understands language, and you nudge it toward your needs — your company's tone, a niche domain, a particular output format.</p>" +
-        "<p>When should you fine-tune? When prompting alone isn't enough: you need consistent style, a specialised skill, or to bake in behaviour so you don't repeat long instructions every time. When should you <i>not</i>? When you mainly need <b>fresh facts</b> — for that, retrieval (RAG, coming later) is usually better and cheaper.</p>" +
+        "<p>You don't start from scratch (that costs millions). You start from a capable model that already understands language, and you nudge it toward your needs: your company's tone, a niche domain, a particular output format.</p>" +
+        "<p>When should you fine-tune? When prompting alone isn't enough: you need consistent style, a specialised skill, or to bake in behaviour so you don't repeat long instructions every time. When should you <i>not</i>? When you mainly need <b>fresh facts</b>; for that, retrieval (RAG, coming later) is usually better and cheaper.</p>" +
         "<p>A key truth: fine-tuning is great at teaching <b>behaviour and style</b>, and weaker at reliably injecting <b>new facts</b>. Keep that distinction and you'll avoid most beginner disappointment.</p>",
       analogy:
-        "<p>Hiring a skilled chef and teaching them <i>your</i> restaurant's signature dishes is fine-tuning. You're not teaching them to cook from zero — just adapting their existing talent to your menu. Far faster than training a chef from childhood.</p>",
+        "<p>Hiring a skilled chef and teaching them <i>your</i> restaurant's signature dishes is fine-tuning. You're not teaching them to cook from zero, just adapting their existing talent to your menu. Far faster than training a chef from childhood.</p>",
       mentalModel:
         "Fine-tuning = a short specialty course for an already-educated model. Great for style and behaviour; not the right tool for fresh facts.",
       mistakes: [
-        "Fine-tuning to add knowledge that changes often — use RAG instead; fine-tuning bakes facts in and goes stale.",
+        "Fine-tuning to add knowledge that changes often. Use RAG instead; fine-tuning bakes facts in and goes stale.",
         "Fine-tuning before trying good prompting. Often a better prompt solves it with zero training.",
         "Using too little or low-quality data and expecting magic. Behaviour change needs clean, consistent examples.",
       ],
@@ -344,7 +344,7 @@ window.COURSE.push({
           "Mark the style/behaviour ones as fine-tuning candidates and the fact-heavy ones as RAG candidates.",
           "Pick one fine-tuning candidate and list what example data you'd need.",
         ],
-        stretch: "Try solving one of your tasks with a really detailed prompt first. If the prompt fully works, you may not need fine-tuning at all — that's a win.",
+        stretch: "Try solving one of your tasks with a really detailed prompt first. If the prompt fully works, you may not need fine-tuning at all. That's a win.",
       },
       quiz: [
         {
@@ -369,11 +369,11 @@ window.COURSE.push({
       tagline: "Pouring a whole new domain of knowledge into a model.",
       lesson:
         "<p>Regular fine-tuning uses neat instruction/answer pairs. <span class='term'>Continued pretraining</span> (sometimes “domain-adaptive pretraining”) is different: you keep training the model on <b>large amounts of raw text</b> from a new domain, the same way it was originally trained.</p>" +
-        "<p>You'd do this when a model needs deep familiarity with a specialised field — say, legal documents, medical literature, or a programming language it barely saw. You feed it lots of that domain's raw text so the patterns soak in.</p>" +
+        "<p>You'd do this when a model needs deep familiarity with a specialised field: say, legal documents, medical literature, or a programming language it barely saw. You feed it lots of that domain's raw text so the patterns soak in.</p>" +
         "<p>Think of the typical pipeline: original pretraining (general language) → continued pretraining (your domain's raw text) → fine-tuning (instruction/answer pairs) → preference tuning (polish). Each step builds on the last.</p>" +
-        "<p>It's heavier and more expensive than fine-tuning, and needs a lot of domain text. Most people won't need it — but knowing it exists explains how specialised models gain genuine depth.</p>",
+        "<p>It's heavier and more expensive than fine-tuning, and needs a lot of domain text. Most people won't need it, but knowing it exists explains how specialised models gain genuine depth.</p>",
       analogy:
-        "<p>Fine-tuning is a weekend workshop. Continued pretraining is moving to a new country and getting immersed in the language for months. You don't just learn phrases — you soak up the whole way of speaking. That depth costs time.</p>",
+        "<p>Fine-tuning is a weekend workshop. Continued pretraining is moving to a new country and getting immersed in the language for months. You don't just learn phrases; you soak up the whole way of speaking. That depth costs time.</p>",
       mentalModel:
         "Continued pretraining = more raw-text immersion in a new domain, before the instruction-style fine-tuning. Depth of knowledge, not just behaviour.",
       mistakes: [
@@ -411,10 +411,10 @@ window.COURSE.push({
       id: "hallucination-reduction",
       title: "Hallucination reduction",
       time: 5,
-      tagline: "Why models make things up — and how to make it rarer.",
+      tagline: "Why models make things up, and how to make it rarer.",
       lesson:
-        "<p>A <span class='term'>hallucination</span> is when a model states something <b>false but confident</b> — an invented citation, a made-up fact, a fake quote. It happens because the model predicts <i>plausible</i> text, and plausible isn't always true.</p>" +
-        "<p>You can't eliminate hallucinations completely, but you can make them much rarer. The biggest levers: <b>1) Give it the facts</b> — use retrieval (RAG) so the answer is grounded in real documents. <b>2) Let it say “I don't know”</b> — train and prompt it to admit uncertainty instead of guessing.</p>" +
+        "<p>A <span class='term'>hallucination</span> is when a model states something <b>false but confident</b>: an invented citation, a made-up fact, a fake quote. It happens because the model predicts <i>plausible</i> text, and plausible isn't always true.</p>" +
+        "<p>You can't eliminate hallucinations completely, but you can make them much rarer. The biggest levers: <b>1) Give it the facts</b>: use retrieval (RAG) so the answer is grounded in real documents. <b>2) Let it say “I don't know”</b>: train and prompt it to admit uncertainty instead of guessing.</p>" +
         "<p>Other helpers: ask for sources and check them, lower the randomness for factual tasks, break questions into steps, and verify critical answers with a second pass. For high-stakes use, always keep a human in the loop.</p>" +
         "<p>The mindset shift: treat a raw model as a <b>confident intern</b>, not an encyclopedia. Brilliant, fast, and occasionally sure of something completely wrong.</p>",
       analogy:

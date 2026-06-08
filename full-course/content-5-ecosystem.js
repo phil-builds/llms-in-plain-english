@@ -1,4 +1,4 @@
-/* Part 5 — Local AI Ecosystem */
+/* Part 5: Local AI Ecosystem */
 window.COURSE.push({
   id: "ecosystem",
   title: "Local AI Ecosystem",
@@ -11,7 +11,7 @@ window.COURSE.push({
       time: 5,
       tagline: "The engine that runs LLMs on almost anything.",
       lesson:
-        "<p><span class='term'>llama.cpp</span> is a lightweight, super-efficient program for <b>running language models locally</b> — even on a laptop, a phone, or a machine with no fancy GPU. It's written to be fast and to squeeze models into modest hardware.</p>" +
+        "<p><span class='term'>llama.cpp</span> is a lightweight, super-efficient program for <b>running language models locally</b>, even on a laptop, a phone, or a machine with no fancy GPU. It's written to be fast and to squeeze models into modest hardware.</p>" +
         "<p>It pioneered the <b>GGUF</b> format you met earlier and is famous for making quantized models run smoothly on everyday computers. Much of the local-AI world is built on top of it.</p>" +
         "<p>You can use it directly from the command line, but many people meet it indirectly: tools like <b>Ollama</b> use llama.cpp as their engine under the hood. So even if you never touch it directly, it's often doing the heavy lifting.</p>" +
         "<p>Think of llama.cpp as the dependable workhorse engine of local inference: not the prettiest interface, but it runs models efficiently where heavier tools can't.</p>",
@@ -22,7 +22,7 @@ window.COURSE.push({
       mistakes: [
         "Thinking it's for training. It's a <b>run-the-model</b> engine, not a fine-tuning tool.",
         "Assuming you must use its raw command line. Friendlier wrappers (Ollama) give you the same engine more easily.",
-        "Feeding it the wrong format. It wants GGUF files — match your download to it.",
+        "Feeding it the wrong format. It wants GGUF files; match your download to it.",
       ],
       exercise: {
         goal: "Map the engine-and-wrapper relationship.",
@@ -43,7 +43,7 @@ window.COURSE.push({
         },
         {
           q: "How do many people use llama.cpp without realising it?",
-          options: ["Through a cloud API that calls a hosted version of it automatically", "Via friendlier tools like Ollama that use it as the engine underneath", "By accessing it directly through the Hugging Face transformers library", "It's always invoked explicitly — there are no transparent wrappers for it"],
+          options: ["Through a cloud API that calls a hosted version of it automatically", "Via friendlier tools like Ollama that use it as the engine underneath", "By accessing it directly through the Hugging Face transformers library", "It's always invoked explicitly: there are no transparent wrappers for it"],
           answer: 1,
           why: "Wrappers like Ollama run on top of llama.cpp, so it powers them behind the scenes.",
         },
@@ -57,34 +57,34 @@ window.COURSE.push({
       tagline: "Run a local model with one simple command.",
       lesson:
         "<p><span class='term'>Ollama</span> is the friendliest on-ramp to running models on your own computer. It wraps the efficient engine (llama.cpp) in a simple tool: install it, type one command like <code>ollama run llama3.2:3b</code>, and you're chatting with a local model.</p>" +
-        "<p>It handles the annoying parts for you — downloading the right model file, picking a sensible quantization, loading it, and exposing a local API your own apps can call. No deep setup required.</p>" +
+        "<p>It handles the annoying parts for you: downloading the right model file, picking a sensible quantization, loading it, and exposing a local API your own apps can call. No deep setup required.</p>" +
         "<p>This makes Ollama perfect for learning and for building local-first apps: your data never leaves your machine, there's no per-token bill, and it works offline. It's many people's first taste of true local AI.</p>" +
         "<p>For heavy production scale you'd reach for vLLM (next), but for personal use, prototypes, and privacy, Ollama is hard to beat.</p>",
       analogy:
-        "<p>If llama.cpp is a raw engine, Ollama is the whole easy-to-drive car with a key you just turn. You don't think about fuel injection — you get in and go. One command, and a model is running for you.</p>",
+        "<p>If llama.cpp is a raw engine, Ollama is the whole easy-to-drive car with a key you just turn. You don't think about fuel injection; you get in and go. One command, and a model is running for you.</p>",
       mentalModel:
         "Ollama = one-command local models. It hides the setup, runs offline and private, and gives you a local API. The beginner-friendly front door to local AI.",
       mistakes: [
         "Expecting data-center-scale serving from it. It shines for personal/local use, not thousands of concurrent users.",
-        "Forgetting it still needs enough RAM/VRAM for the model you pull — check sizes.",
+        "Forgetting it still needs enough RAM/VRAM for the model you pull. Check sizes.",
         "Not realising it exposes a local API you can build apps against, not just a chat box.",
       ],
       exercise: {
         goal: "Run your first fully-local model.",
         steps: [
-          "Install Ollama from its official site (free; requires macOS, Linux, or Windows — if you're on a Chromebook or restricted machine, use a free cloud GPU like Google Colab instead).",
-          "In a terminal, run a small model: <code>ollama run llama3.2:3b</code>. The <code>:3b</code> pins the size — always specify a version tag so you know what you're getting.",
-          "Disconnect from the internet and confirm it still answers — that's local AI.",
+          "Install Ollama from its official site (free; requires macOS, Linux, or Windows; if you're on a Chromebook or restricted machine, use a free cloud GPU like Google Colab instead).",
+          "In a terminal, run a small model: <code>ollama run llama3.2:3b</code>. The <code>:3b</code> pins the size; always specify a version tag so you know what you're getting.",
+          "Disconnect from the internet and confirm it still answers; that's local AI.",
           "Note the model's size and how fast it felt on your machine.",
         ],
-        stretch: "Find Ollama's local API endpoint in its docs and send it a request from a tiny script — you've just built a local AI app.",
+        stretch: "Find Ollama's local API endpoint in its docs and send it a request from a tiny script; you've just built a local AI app.",
       },
       quiz: [
         {
           q: "What makes Ollama beginner-friendly?",
           options: ["It auto-selects the optimal model for your task without any user input", "One simple command downloads and runs a local model for you", "It manages a remote GPU cluster so you don't need local hardware", "It converts models into GGUF format automatically before running them"],
           answer: 1,
-          why: "Ollama hides the setup — a single command pulls and runs a model with a sensible default.",
+          why: "Ollama hides the setup: a single command pulls and runs a model with a sensible default.",
         },
         {
           q: "What's a key benefit of running models with Ollama locally?",
@@ -101,17 +101,17 @@ window.COURSE.push({
       time: 5,
       tagline: "The high-performance engine for serving at scale.",
       lesson:
-        "<p><span class='term'>vLLM</span> is a serving system built for <b>speed and scale</b> on GPUs. Where Ollama is about easy personal use, vLLM is about serving many users efficiently — the kind of thing a real product or API needs.</p>" +
-        "<p>Its claim to fame is smart memory management for the KV cache (<b>PagedAttention</b> — it stores the KV cache in flexible memory blocks rather than one large chunk, letting it serve far more users at once) and <b>continuous batching</b>, which together let it handle lots of simultaneous requests with high throughput and good latency.</p>" +
+        "<p><span class='term'>vLLM</span> is a serving system built for <b>speed and scale</b> on GPUs. Where Ollama is about easy personal use, vLLM is about serving many users efficiently, the kind of thing a real product or API needs.</p>" +
+        "<p>Its claim to fame is smart memory management for the KV cache (<b>PagedAttention</b>: it stores the KV cache in flexible memory blocks rather than one large chunk, letting it serve far more users at once) and <b>continuous batching</b>, which together let it handle lots of simultaneous requests with high throughput and good latency.</p>" +
         "<p>In practice, vLLM is where many of the optimisation ideas from the last section come together: efficient caching, batching, and fast attention, all in one serving engine. It exposes an API that's often compatible with popular API styles, so apps can switch to it easily.</p>" +
         "<p>Rule of thumb: <b>Ollama for one person or a prototype; vLLM when you need to serve many people fast.</b></p>",
       analogy:
-        "<p>Ollama is your home kitchen — perfect for cooking for yourself. vLLM is a professional restaurant kitchen built to plate hundreds of orders an hour without falling behind. Same cooking, very different scale of operation.</p>",
+        "<p>Ollama is your home kitchen, perfect for cooking for yourself. vLLM is a professional restaurant kitchen built to plate hundreds of orders an hour without falling behind. Same cooking, very different scale of operation.</p>",
       mentalModel:
         "vLLM = the scale engine. Clever KV-cache memory + continuous batching = high throughput serving for many users. Reach for it past prototype stage.",
       mistakes: [
         "Using vLLM for a single-user toy when Ollama would be simpler. Match the tool to the scale.",
-        "Underestimating its hardware needs — it's GPU-focused and serious.",
+        "Underestimating its hardware needs. It's GPU-focused and serious.",
         "Thinking it replaces the model. Like all serving tools, it runs whatever model you give it.",
       ],
       exercise: {
@@ -149,7 +149,7 @@ window.COURSE.push({
         "<p><span class='term'>MLX</span> is a machine-learning framework made by Apple, designed to run efficiently on <b>Apple Silicon</b> Macs (the M-series chips). If you have a modern Mac, MLX lets you run and even fine-tune models using the Mac's unified memory and GPU.</p>" +
         "<p>Its big advantage on Macs is <b>unified memory</b>: the chip's memory is shared between the CPU and GPU, so models can use a large pool without the usual VRAM bottleneck. This lets capable models run well on consumer Macs.</p>" +
         "<p>The MLX community on Hugging Face maintains a growing set of MLX-ready models you can run directly. For Mac users, MLX is frequently the fastest, most native way to do local AI.</p>" +
-        "<p>If you're not on a Mac, you'll use other tools — but it's worth knowing MLX exists, because the hardware landscape (and the best tool) depends on what you own.</p>",
+        "<p>If you're not on a Mac, you'll use other tools, but it's worth knowing MLX exists, because the hardware landscape (and the best tool) depends on what you own.</p>",
       analogy:
         "<p>MLX is like a tool built to fit one brand of workshop perfectly. If your workshop is that brand (an Apple Silicon Mac), the tool slots in beautifully and runs smoothly. In a different workshop, you'd reach for a different, equally good tool.</p>",
       mentalModel:
@@ -157,7 +157,7 @@ window.COURSE.push({
       mistakes: [
         "Trying to use MLX off Apple Silicon. It's designed specifically for those chips.",
         "Assuming it's only for inference. It also supports training and fine-tuning on supported Macs.",
-        "Forgetting tooling differs by hardware — the “best” local tool depends on the machine you have.",
+        "Forgetting tooling differs by hardware. The “best” local tool depends on the machine you have.",
       ],
       exercise: {
         goal: "Pick the right local tool for your hardware.",
@@ -189,14 +189,14 @@ window.COURSE.push({
       id: "huggingface",
       title: "Hugging Face",
       time: 5,
-      tagline: "The GitHub of AI — where models and datasets live.",
+      tagline: "The GitHub of AI: where models and datasets live.",
       lesson:
         "<p><span class='term'>Hugging Face</span> is the central hub of the open AI world. It's a website (and set of tools) where people <b>share models, datasets, and demos</b>. If open AI has a town square, this is it.</p>" +
         "<p>You'll use it to: <b>find models</b> (browse, read “model cards” describing them), <b>find datasets</b> (for training or testing), and <b>download</b> what you need. Its popular software library (called <code>transformers</code>) is a common way to load and run models in code.</p>" +
-        "<p>A few key spots: the <b>Hub</b> (models + datasets), <b>model cards</b> (the readme for each model — licence, size, intended use), and <b>Spaces</b> (live browser demos — no setup, just open and try any model in seconds).</p>" +
+        "<p>A few key spots: the <b>Hub</b> (models + datasets), <b>model cards</b> (the readme for each model: licence, size, intended use), and <b>Spaces</b> (live browser demos: no setup, just open and try any model in seconds).</p>" +
         "<p>Almost every tool in this section connects to Hugging Face for downloads. Getting comfortable browsing it is one of the highest-value beginner skills.</p>",
       analogy:
-        "<p>Think of an app store crossed with a library. You browse, read the description (model card), check the reviews and licence, and download the one that fits — except everything is open AI models and datasets instead of phone apps.</p>",
+        "<p>Think of an app store crossed with a library. You browse, read the description (model card), check the reviews and licence, and download the one that fits, except everything is open AI models and datasets instead of phone apps.</p>",
       mentalModel:
         "Hugging Face = the shared hub for open models, datasets, and demos. Read the model card before you download; most tools pull from here.",
       mistakes: [
@@ -223,7 +223,7 @@ window.COURSE.push({
         },
         {
           q: "What should you check before downloading a model from it?",
-          options: ["Its leaderboard ranking, since higher rank always means better real-world fit", "Its model card — size, licence, and intended use", "The number of likes, as community approval reliably predicts suitability", "Its creation date — newer models are always preferable to older ones"],
+          options: ["Its leaderboard ranking, since higher rank always means better real-world fit", "Its model card: size, licence, and intended use", "The number of likes, as community approval reliably predicts suitability", "Its creation date: newer models are always preferable to older ones"],
           answer: 1,
           why: "Model cards reveal size, licence, and limitations so you pick something you can and may use.",
         },
@@ -236,8 +236,8 @@ window.COURSE.push({
       time: 4,
       tagline: "Fine-tuning made faster and lighter for beginners.",
       lesson:
-        "<p><span class='term'>Unsloth</span> is a tool that makes <b>fine-tuning open models much faster and more memory-efficient</b> — often around twice as fast while using less VRAM. It's a favourite for people fine-tuning on limited hardware, like a single free cloud GPU.</p>" +
-        "<p>It specialises in the LoRA/QLoRA approach you learned, with friendly, ready-to-run notebooks. You bring your formatted dataset, pick a base model, run the cells, and get a LoRA adapter out — without wrestling with low-level setup.</p>" +
+        "<p><span class='term'>Unsloth</span> is a tool that makes <b>fine-tuning open models much faster and more memory-efficient</b>, often around twice as fast while using less VRAM. It's a favourite for people fine-tuning on limited hardware, like a single free cloud GPU.</p>" +
+        "<p>It specialises in the LoRA/QLoRA approach you learned, with friendly, ready-to-run notebooks. You bring your formatted dataset, pick a base model, run the cells, and get a LoRA adapter out, without wrestling with low-level setup.</p>" +
         "<p>Its appeal is the combination of <b>speed, low memory, and approachability</b>. For a beginner who wants to actually fine-tune something this week (not just read about it), Unsloth is one of the smoothest paths.</p>" +
         "<p>Pair it with what you know: clean, well-formatted data + QLoRA + Unsloth = a realistic first fine-tune on modest hardware.</p>",
       analogy:
@@ -247,7 +247,7 @@ window.COURSE.push({
       mistakes: [
         "Expecting it to fix bad data. It speeds up training, but garbage data still gives garbage results.",
         "Thinking it's a serving tool. It's for <b>fine-tuning</b>; you serve the result elsewhere.",
-        "Skipping the data-formatting step — Unsloth still needs your examples in the right shape.",
+        "Skipping the data-formatting step. Unsloth still needs your examples in the right shape.",
       ],
       exercise: {
         goal: "Plan a realistic first fine-tune.",
@@ -268,9 +268,9 @@ window.COURSE.push({
         },
         {
           q: "What does Unsloth NOT fix?",
-          options: ["Training speed — Unsloth's core optimisations keep it at standard pace", "Bad or poorly-formatted data", "Memory use — it applies no compression or efficiency techniques internally", "Ease of setup — the environment still requires manual dependency management"],
+          options: ["Training speed: Unsloth's core optimisations keep it at standard pace", "Bad or poorly-formatted data", "Memory use: it applies no compression or efficiency techniques internally", "Ease of setup: the environment still requires manual dependency management"],
           answer: 1,
-          why: "Faster training can't rescue low-quality or wrongly-formatted data — quality still rules.",
+          why: "Faster training can't rescue low-quality or wrongly-formatted data; quality still rules.",
         },
       ],
     },
@@ -281,17 +281,17 @@ window.COURSE.push({
       time: 4,
       tagline: "Fine-tuning driven by a simple config file.",
       lesson:
-        "<p><span class='term'>Axolotl</span> is another popular fine-tuning tool, known for being <b>configuration-driven</b>. Instead of writing lots of code, you fill out a settings file (a YAML config) describing your model, dataset, and method — then run it.</p>" +
+        "<p><span class='term'>Axolotl</span> is another popular fine-tuning tool, known for being <b>configuration-driven</b>. Instead of writing lots of code, you fill out a settings file (a YAML config) describing your model, dataset, and method, then run it.</p>" +
         "<p>This makes experiments tidy and repeatable: change a few lines in the config to try a different base model, dataset, or LoRA setting, and re-run. It supports many models and techniques (full fine-tune, LoRA, QLoRA, preference methods) under one consistent interface.</p>" +
         "<p>Where Unsloth leans toward speed and beginner notebooks, Axolotl leans toward <b>flexibility and reproducibility</b> for people running many or more serious fine-tuning jobs. Both are widely used; many practitioners know both.</p>" +
         "<p>The takeaway: Axolotl turns fine-tuning into “edit a recipe file and press go,” which scales nicely as your experiments grow.</p>",
       analogy:
-        "<p>It's like a bread machine with a recipe card. You don't knead by hand — you set the dial (the config) for the loaf you want and press start. Want a different loaf next time? Change the card, not the whole process.</p>",
+        "<p>It's like a bread machine with a recipe card. You don't knead by hand; you set the dial (the config) for the loaf you want and press start. Want a different loaf next time? Change the card, not the whole process.</p>",
       mentalModel:
         "Axolotl = config-file fine-tuning. Describe model + data + method in YAML, press go. Flexible and reproducible for serious or repeated experiments.",
       mistakes: [
         "A tiny config typo can break a run. Treat the settings file carefully.",
-        "Assuming it's harder than it is — the config approach is actually very learnable.",
+        "Assuming it's harder than it is. The config approach is actually very learnable.",
         "Forcing a choice between Axolotl and Unsloth. They overlap; pick by your need (notebook ease vs config control).",
       ],
       exercise: {
@@ -326,7 +326,7 @@ window.COURSE.push({
       time: 4,
       tagline: "The library that makes adapter tuning easy in code.",
       lesson:
-        "<p><span class='term'>PEFT</span> is both an idea and a software library from Hugging Face. As an idea, it means <b>Parameter-Efficient Fine-Tuning</b> — fine-tuning by training as few parameters as possible (which is exactly what LoRA does).</p>" +
+        "<p><span class='term'>PEFT</span> is both an idea and a software library from Hugging Face. As an idea, it means <b>Parameter-Efficient Fine-Tuning</b>: fine-tuning by training as few parameters as possible (which is exactly what LoRA does).</p>" +
         "<p>As a library, PEFT gives you ready-made code to apply these methods: wrap a base model, attach a LoRA adapter, train only the small bits, and save the tiny result. It's the practical glue many other tools (including Unsloth and Axolotl) build on or interoperate with.</p>" +
         "<p>You'll see PEFT mentioned constantly because it standardised how adapters work in the open ecosystem. Learn LoRA conceptually, and PEFT is simply how you do it in real code with minimal fuss.</p>" +
         "<p>Connection check: LoRA = the method, adapters = the small modules, PEFT = the umbrella idea + the library that implements it.</p>",
@@ -352,7 +352,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does PEFT stand for, and what is it?",
-          options: ["A Hugging Face tool for benchmarking instruction-tuned models on standard tasks", "Parameter-Efficient Fine-Tuning — an idea and a library for adapter-based tuning", "A dataset format for organising preference pairs used in DPO training", "A quantization standard that stores model weights at reduced bit precision"],
+          options: ["A Hugging Face tool for benchmarking instruction-tuned models on standard tasks", "Parameter-Efficient Fine-Tuning: an idea and a library for adapter-based tuning", "A dataset format for organising preference pairs used in DPO training", "A quantization standard that stores model weights at reduced bit precision"],
           answer: 1,
           why: "PEFT is the umbrella concept plus a Hugging Face library implementing LoRA-style methods.",
         },
@@ -372,7 +372,7 @@ window.COURSE.push({
       tagline: "The toolkit for the training steps after pretraining.",
       lesson:
         "<p><span class='term'>TRL</span> stands for <b>Transformer Reinforcement Learning</b>, a Hugging Face library that provides ready-made code for the <b>post-training</b> steps: supervised fine-tuning (SFT), preference tuning (DPO), and the more complex RLHF.</p>" +
-        "<p>Where PEFT handles the “train few parameters” part, TRL handles the “what training procedure to run” part. It offers clean trainers — an SFT trainer, a DPO trainer, and more — so you don't have to build these training loops yourself.</p>" +
+        "<p>Where PEFT handles the “train few parameters” part, TRL handles the “what training procedure to run” part. It offers clean trainers (an SFT trainer, a DPO trainer, and more) so you don't have to build these training loops yourself.</p>" +
         "<p>In practice, the pieces fit together: load a model and data (transformers + datasets), make it efficient (PEFT/LoRA), and run the right training procedure (TRL's SFT or DPO trainer). Tools like Axolotl and Unsloth wire these together for you.</p>" +
         "<p>You don't need to memorise the code. Just recognise the roles: TRL is where SFT, DPO, and RLHF live as usable trainers.</p>",
       analogy:
@@ -403,9 +403,9 @@ window.COURSE.push({
         },
         {
           q: "How do PEFT and TRL work together?",
-          options: ["TRL wraps PEFT internally, so you only ever call PEFT directly", "PEFT makes training efficient (LoRA); TRL runs the procedure (SFT/DPO)", "Both handle serving — PEFT for local use, TRL for production deployments", "Both reduce memory use, but through different mechanisms that often conflict"],
+          options: ["TRL wraps PEFT internally, so you only ever call PEFT directly", "PEFT makes training efficient (LoRA); TRL runs the procedure (SFT/DPO)", "Both handle serving: PEFT for local use, TRL for production deployments", "Both reduce memory use, but through different mechanisms that often conflict"],
           answer: 1,
-          why: "PEFT handles parameter efficiency; TRL handles the training procedure — they combine.",
+          why: "PEFT handles parameter efficiency; TRL handles the training procedure. They combine.",
         },
       ],
     },

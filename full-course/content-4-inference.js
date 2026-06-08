@@ -1,4 +1,4 @@
-/* Part 4 — Inference & Optimization */
+/* Part 4: Inference & Optimization */
 window.COURSE.push({
   id: "inference",
   title: "Inference & Optimization",
@@ -12,15 +12,15 @@ window.COURSE.push({
       tagline: "How models avoid redoing the same work every word.",
       lesson:
         "<p>Remember that a model generates text one token at a time, and for each new token it uses attention to look back at all the previous tokens. Naively, it would re-process the <i>entire</i> conversation again for every single new word. That's hugely wasteful.</p>" +
-        "<p>The <span class='term'>KV cache</span> fixes this. As the model processes each token, it stores some intermediate results (called Keys and Values — the “K” and “V”) in memory. For the next token, it <b>reuses</b> those stored results instead of recomputing them.</p>" +
+        "<p>The <span class='term'>KV cache</span> fixes this. As the model processes each token, it stores some intermediate results (called Keys and Values, the “K” and “V”) in memory. For the next token, it <b>reuses</b> those stored results instead of recomputing them.</p>" +
         "<p>The effect is dramatic: generation gets much faster, because each new token only does the small bit of new work, not the whole history again. Nearly every fast inference system relies on this.</p>" +
-        "<p>The trade-off: the cache lives in memory (VRAM), and it grows with the length of the conversation. Long contexts mean a big KV cache — one reason very long chats use more memory and can slow down.</p>",
+        "<p>The trade-off: the cache lives in memory (VRAM), and it grows with the length of the conversation. Long contexts mean a big KV cache, one reason very long chats use more memory and can slow down.</p>",
       analogy:
-        "<p>Imagine adding numbers in a long list. Instead of re-adding the whole list each time a new number arrives, you keep a running total and just add the new number. The KV cache is that running total — it saves you from redoing all the earlier work.</p>",
+        "<p>Imagine adding numbers in a long list. Instead of re-adding the whole list each time a new number arrives, you keep a running total and just add the new number. The KV cache is that running total; it saves you from redoing all the earlier work.</p>",
       mentalModel:
         "KV cache = remembering past work so each new token is cheap. Big speed-up, but the cache grows with context length and eats memory.",
       mistakes: [
-        "Forgetting the cache uses memory that grows with conversation length — a hidden cost of long contexts.",
+        "Forgetting the cache uses memory that grows with conversation length, a hidden cost of long contexts.",
         "Thinking it changes the model's answers. It only speeds up how they're computed; outputs are the same.",
         "Assuming it helps the very first pass. The big win is on each <b>subsequent</b> generated token.",
       ],
@@ -29,7 +29,7 @@ window.COURSE.push({
         steps: [
           "Notice in any chatbot that the first few words can take a moment, then the rest stream out fast.",
           "Write down why: the model builds context once, then reuses cached work per token.",
-          "Now picture a very long chat — explain why memory use climbs.",
+          "Now picture a very long chat. Explain why memory use climbs.",
           "Summarise in one sentence: what does the KV cache trade to gain speed?",
         ],
         stretch: "Read a serving tool's docs (like vLLM) for the phrase “KV cache” and note how much of their optimisation centres on managing it.",
@@ -57,7 +57,7 @@ window.COURSE.push({
       tagline: "A smarter way to compute attention, with less memory.",
       lesson:
         "<p>Attention is powerful but expensive: comparing every token with every other token creates a lot of intermediate data. On long inputs, this can swamp a GPU's memory and slow everything down.</p>" +
-        "<p><span class='term'>Flash Attention</span> is a clever re-engineering of <i>how</i> attention is calculated on the GPU. It produces the <b>exact same result</b>, but organises the math to use far less memory and run much faster — by being smart about how data moves around inside the chip.</p>" +
+        "<p><span class='term'>Flash Attention</span> is a clever re-engineering of <i>how</i> attention is calculated on the GPU. It produces the <b>exact same result</b>, but organises the math to use far less memory and run much faster, by being smart about how data moves around inside the chip.</p>" +
         "<p>You don't need the deep details. What matters: if a tool offers “Flash Attention,” turning it on usually makes training and inference faster and lets you handle longer contexts, for free, with no quality loss.</p>" +
         "<p>It's a great example of a recurring theme in this section: often the model stays identical, and the speed-up comes purely from doing the same computation more cleverly.</p>",
       analogy:
@@ -65,7 +65,7 @@ window.COURSE.push({
       mentalModel:
         "Flash Attention = same attention result, computed in a memory-smart way. Faster + longer contexts, no quality cost. Flip it on when offered.",
       mistakes: [
-        "Thinking it changes accuracy. It's mathematically the same output — just computed efficiently.",
+        "Thinking it changes accuracy. It's mathematically the same output, just computed efficiently.",
         "Assuming it works on any hardware. It needs compatible GPUs; older or CPU-only setups may not support it.",
         "Overthinking it. For most users it's simply a speed toggle in their tool of choice.",
       ],
@@ -82,7 +82,7 @@ window.COURSE.push({
       quiz: [
         {
           q: "What does Flash Attention change?",
-          options: ["Which tokens the model attends to on each forward pass", "How attention is computed — faster and more memory-efficient, same result", "How many attention heads the model uses per layer", "The order in which transformer layers are processed during inference"],
+          options: ["Which tokens the model attends to on each forward pass", "How attention is computed: faster and more memory-efficient, same result", "How many attention heads the model uses per layer", "The order in which transformer layers are processed during inference"],
           answer: 1,
           why: "It reorganises the attention math to be faster and use less memory, with identical output.",
         },
@@ -102,16 +102,16 @@ window.COURSE.push({
       tagline: "A small model races ahead; a big one checks its work.",
       lesson:
         "<p>Generating text token-by-token with a big model is slow because each token waits for the full model to run. <span class='term'>Speculative decoding</span> speeds this up with a neat trick: use a <b>small, fast model to guess several tokens ahead</b>, then have the big model <b>verify</b> them all at once.</p>" +
-        "<p>If the small model's guesses are right (which they often are for easy, predictable text), the big model accepts them in a single quick check — getting several tokens for the price of one. If a guess is wrong, the big model corrects it and they continue.</p>" +
-        "<p>Crucially, the final output is <b>identical</b> to what the big model would have produced alone — the small model only proposes; the big model always has the final say. You get speed with no quality loss.</p>" +
+        "<p>If the small model's guesses are right (which they often are for easy, predictable text), the big model accepts them in a single quick check, getting several tokens for the price of one. If a guess is wrong, the big model corrects it and they continue.</p>" +
+        "<p>Crucially, the final output is <b>identical</b> to what the big model would have produced alone: the small model only proposes; the big model always has the final say. You get speed with no quality loss.</p>" +
         "<p>It's a favourite optimisation in serious serving systems, sometimes doubling speed on everyday text.</p>",
       analogy:
-        "<p>Think of a fast junior assistant drafting the easy parts of a letter, and the expert quickly glancing over it. When the draft is fine, the expert just nods it through — much faster than writing every word themselves. The expert still catches and fixes any mistakes.</p>",
+        "<p>Think of a fast junior assistant drafting the easy parts of a letter, and the expert quickly glancing over it. When the draft is fine, the expert just nods it through, much faster than writing every word themselves. The expert still catches and fixes any mistakes.</p>",
       mentalModel:
         "Speculative decoding = a quick model proposes several tokens, the big model verifies in one shot. Same final answer, often much faster.",
       mistakes: [
         "Thinking it lowers quality. The big model verifies everything, so output matches running it alone.",
-        "Expecting big speed-ups on hard, unpredictable text — the small model guesses wrong more often there.",
+        "Expecting big speed-ups on hard, unpredictable text. The small model guesses wrong more often there.",
         "Confusing the helper model's role. It only suggests; it never overrides the main model.",
       ],
       exercise: {
@@ -133,7 +133,7 @@ window.COURSE.push({
         },
         {
           q: "What happens to output quality?",
-          options: ["It improves slightly because the small model adds diverse candidate tokens", "It's identical — the big model always verifies and has final say", "It varies by task — creative tasks improve but factual tasks may degrade", "It degrades slightly because rejected tokens introduce noise into the context"],
+          options: ["It improves slightly because the small model adds diverse candidate tokens", "It's identical: the big model always verifies and has final say", "It varies by task: creative tasks improve but factual tasks may degrade", "It degrades slightly because rejected tokens introduce noise into the context"],
           answer: 1,
           why: "The main model verifies everything, so the result matches running it alone.",
         },
@@ -146,12 +146,12 @@ window.COURSE.push({
       time: 5,
       tagline: "The toolbox for making models cheaper and faster to run.",
       lesson:
-        "<p><span class='term'>Inference optimization</span> is the broad goal of making a trained model respond <b>faster and cheaper</b> without retraining it. The topics around this one — KV cache, Flash Attention, speculative decoding, batching, quantization — are all tools in this toolbox.</p>" +
+        "<p><span class='term'>Inference optimization</span> is the broad goal of making a trained model respond <b>faster and cheaper</b> without retraining it. The topics around this one (KV cache, Flash Attention, speculative decoding, batching, quantization) are all tools in this toolbox.</p>" +
         "<p>The common theme: the model's <i>knowledge</i> stays fixed; we just compute its answers more efficiently. Optimisation lives in the engineering layer, not the model's brain.</p>" +
         "<p>The main levers are: make each computation cheaper (quantization, Flash Attention), avoid redoing work (KV cache), serve many requests together (batching), and predict ahead (speculative decoding). Real systems stack several of these at once.</p>" +
         "<p>Why it matters: at scale, a 2× speed-up can halve your hardware bill and make an app feel instant instead of sluggish. For products, inference cost and latency are often the make-or-break factors.</p>",
       analogy:
-        "<p>Think of optimising a kitchen during a dinner rush. You don't hire a better chef (retrain) — you prep ingredients ahead (cache), batch similar orders, use sharper knives (efficient math), and have a junior plate the easy dishes. Same menu, served faster and cheaper.</p>",
+        "<p>Think of optimising a kitchen during a dinner rush. You don't hire a better chef (retrain); you prep ingredients ahead (cache), batch similar orders, use sharper knives (efficient math), and have a junior plate the easy dishes. Same menu, served faster and cheaper.</p>",
       mentalModel:
         "Inference optimization = serve the same model faster and cheaper using engineering tricks. The brain is fixed; the kitchen gets efficient.",
       mistakes: [
@@ -191,12 +191,12 @@ window.COURSE.push({
       time: 5,
       tagline: "Turning a model file into a service people can call.",
       lesson:
-        "<p>A model on disk does nothing by itself. <span class='term'>Model serving</span> is <b>running the model as a live service</b> that accepts requests and returns answers — usually behind an API other programs can call.</p>" +
+        "<p>A model on disk does nothing by itself. <span class='term'>Model serving</span> is <b>running the model as a live service</b> that accepts requests and returns answers, usually behind an API other programs can call.</p>" +
         "<p>A serving system handles the unglamorous-but-vital jobs: loading the model into memory, receiving many users' requests, queuing and batching them, managing the KV cache, streaming answers back token by token, and staying up reliably.</p>" +
-        "<p>Popular serving tools include <b>vLLM</b> (high-performance, for GPUs and scale) and <b>Ollama</b> (simple, local-first) — both covered in the next section. The serving layer is where all those optimisation tricks actually get applied.</p>" +
-        "<p>Mental split: the <b>model</b> is the engine; <b>serving</b> is the car around it — steering, dashboard, doors — that lets real people actually use it.</p>",
+        "<p>Popular serving tools include <b>vLLM</b> (high-performance, for GPUs and scale) and <b>Ollama</b> (simple, local-first), both covered in the next section. The serving layer is where all those optimisation tricks actually get applied.</p>" +
+        "<p>Mental split: the <b>model</b> is the engine; <b>serving</b> is the car around it (steering, dashboard, doors) that lets real people actually use it.</p>",
       analogy:
-        "<p>A great recipe (the model) feeds no one until there's a restaurant (serving) — a kitchen, waiters taking orders, a queue system, and plates going out. Serving is the whole operation that delivers the model's output to customers reliably.</p>",
+        "<p>A great recipe (the model) feeds no one until there's a restaurant (serving): a kitchen, waiters taking orders, a queue system, and plates going out. Serving is the whole operation that delivers the model's output to customers reliably.</p>",
       mentalModel:
         "Model serving = running the model as a reliable live API: load it, handle many requests, batch, cache, stream, stay up. The model is the engine; serving is the car.",
       mistakes: [
@@ -212,7 +212,7 @@ window.COURSE.push({
           "Explain why the same model could power a fast app and a slow one.",
           "Write one line: what does a serving layer add that a bare model file lacks?",
         ],
-        stretch: "Install Ollama later and run a model — you'll have created a tiny local serving setup with a real API endpoint.",
+        stretch: "Install Ollama later and run a model; you'll have created a tiny local serving setup with a real API endpoint.",
       },
       quiz: [
         {
@@ -236,17 +236,17 @@ window.COURSE.push({
       time: 4,
       tagline: "Serving many requests together for big efficiency.",
       lesson:
-        "<p><span class='term'>Batch inference</span> means processing <b>multiple requests at the same time</b> in one go, rather than one after another. GPUs are built for this — they're happiest doing lots of parallel math.</p>" +
+        "<p><span class='term'>Batch inference</span> means processing <b>multiple requests at the same time</b> in one go, rather than one after another. GPUs are built for this; they're happiest doing lots of parallel math.</p>" +
         "<p>Running requests one-by-one leaves most of the GPU idle. Batching packs several together so the hardware does more useful work per pass. This dramatically raises <b>throughput</b> (total requests handled per second) and lowers cost per request.</p>" +
         "<p>There's a balance: bigger batches are more efficient overall, but an individual request might wait a moment for the batch to fill, slightly raising its <b>latency</b>. Smart serving systems use “continuous batching” to get the best of both.</p>" +
         "<p>For one person chatting, batching barely matters. For an app serving thousands, it's one of the biggest cost savers there is.</p>",
       analogy:
-        "<p>Think of a bus versus individual taxis. Taxis (one request each) waste fuel and road space. A bus (a batch) carries many people in one trip — far more efficient per passenger, though each rider waits a little for it to fill and follow the route.</p>",
+        "<p>Think of a bus versus individual taxis. Taxis (one request each) waste fuel and road space. A bus (a batch) carries many people in one trip, far more efficient per passenger, though each rider waits a little for it to fill and follow the route.</p>",
       mentalModel:
         "Batch inference = handle many requests in one parallel pass. Higher throughput, lower cost per request, with a small latency trade-off as batches fill.",
       mistakes: [
         "Thinking batching helps a single user. Its payoff is at scale, with many simultaneous requests.",
-        "Making batches so large that individual requests wait too long — balance throughput and latency.",
+        "Making batches so large that individual requests wait too long. Balance throughput and latency.",
         "Confusing throughput (total handled) with latency (one request's wait). Batching trades a bit of the latter for the former.",
       ],
       exercise: {
@@ -282,11 +282,11 @@ window.COURSE.push({
       tagline: "Why AI runs on graphics chips, not regular processors.",
       lesson:
         "<p>A <span class='term'>GPU</span> (Graphics Processing Unit) was originally built to draw video-game graphics, which means doing <b>thousands of simple calculations at the same time</b>. It turns out that's exactly what running an AI model needs.</p>" +
-        "<p>A regular processor (CPU) is like a few very smart workers doing tasks one after another. A GPU is like thousands of simpler workers all working in parallel. Model math is mostly huge piles of multiplications that can happen simultaneously — perfect for a GPU.</p>" +
+        "<p>A regular processor (CPU) is like a few very smart workers doing tasks one after another. A GPU is like thousands of simpler workers all working in parallel. Model math is mostly huge piles of multiplications that can happen simultaneously, perfect for a GPU.</p>" +
         "<p>That's why training and fast inference happen on GPUs, and why GPU availability and price shape the whole AI industry. You can run small models on a CPU, but it's far slower.</p>" +
         "<p>You'll hear brand and model names (various data-center and consumer cards). For now, the key idea is <b>parallelism</b>: GPUs win because AI work splits into many parallel pieces.</p>",
       analogy:
-        "<p>Imagine painting a huge wall. One expert painter (CPU) does careful work but slowly. A hundred decent painters (GPU) each take a patch and finish the whole wall in a flash. AI is a “huge wall” job — lots of similar work, best split across many hands.</p>",
+        "<p>Imagine painting a huge wall. One expert painter (CPU) does careful work but slowly. A hundred decent painters (GPU) each take a patch and finish the whole wall in a flash. AI is a “huge wall” job: lots of similar work, best split across many hands.</p>",
       mentalModel:
         "GPU = thousands of workers in parallel; CPU = a few clever workers in sequence. AI's math is massively parallel, so GPUs win.",
       mistakes: [
@@ -326,17 +326,17 @@ window.COURSE.push({
       time: 5,
       tagline: "The one number that decides if a model will even run.",
       lesson:
-        "<p><span class='term'>VRAM</span> is a GPU's own memory (Video RAM). It's where the model's parameters and its working data (like the KV cache) must live while running. If a model doesn't <b>fit</b> in VRAM, it won't run on that GPU — full stop.</p>" +
+        "<p><span class='term'>VRAM</span> is a GPU's own memory (Video RAM). It's where the model's parameters and its working data (like the KV cache) must live while running. If a model doesn't <b>fit</b> in VRAM, it won't run on that GPU. Full stop.</p>" +
         "<p>This makes VRAM often <i>the</i> deciding factor for what you can run. A rough guide: a model in 16-bit needs about 2 GB of VRAM per billion parameters; quantized to 4-bit, roughly 0.5–0.7 GB per billion. So an 8B model might need ~16 GB raw, or ~5 GB quantized.</p>" +
         "<p>On top of the weights, you need extra VRAM for the KV cache (which grows with context) and overhead. That's why people quantize: to fit bigger models into the VRAM they actually have.</p>" +
-        "<p>When choosing a model, the first question isn't “is it good?” — it's often “does it fit in my VRAM?”</p>",
+        "<p>When choosing a model, the first question isn't “is it good?”; it's often “does it fit in my VRAM?”</p>",
       analogy:
-        "<p>VRAM is the size of your workbench. The model is a machine you must place on it to use. A huge machine simply won't fit on a small bench — no matter how skilled you are. Quantization is getting a folding, compact version that fits.</p>",
+        "<p>VRAM is the size of your workbench. The model is a machine you must place on it to use. A huge machine simply won't fit on a small bench, no matter how skilled you are. Quantization is getting a folding, compact version that fits.</p>",
       mentalModel:
         "VRAM = the GPU's workbench size. The model (plus its KV cache) must fit, or it won't run. Quantize to make big models fit small benches.",
       mistakes: [
         "Picking a model by quality alone, then finding it won't fit in your VRAM.",
-        "Forgetting the KV cache and overhead also need VRAM — leave headroom beyond just the weights.",
+        "Forgetting the KV cache and overhead also need VRAM. Leave headroom beyond just the weights.",
         "Assuming system RAM helps directly. It's the GPU's VRAM that matters most for GPU inference.",
       ],
       exercise: {
@@ -372,13 +372,13 @@ window.COURSE.push({
       tagline: "You usually can't have fastest, cheapest, and best at once.",
       lesson:
         "<p>Almost every real AI decision is a balance between <b>latency</b> (how fast the answer comes), <b>cost</b> (how much it takes to produce), and <b>quality</b> (how good it is). Push one and the others usually move.</p>" +
-        "<p>Want faster and cheaper? Use a smaller or more quantized model — but quality may dip. Want top quality? Use a bigger model or more reasoning steps — but it's slower and pricier. There's rarely a free lunch.</p>" +
+        "<p>Want faster and cheaper? Use a smaller or more quantized model, but quality may dip. Want top quality? Use a bigger model or more reasoning steps, but it's slower and pricier. There's rarely a free lunch.</p>" +
         "<p>The skill is matching the trade-off to the <b>job</b>. Autocomplete in a code editor needs to be instant, so favour speed. A legal contract review favours quality, even if it's slower. A high-volume chatbot watches cost closely.</p>" +
-        "<p>Good engineers don't seek “the best model” in the abstract — they ask “what's good enough, fast enough, and cheap enough for <i>this</i> use?” That framing prevents a lot of wasted money and frustration.</p>",
+        "<p>Good engineers don't seek “the best model” in the abstract; they ask “what's good enough, fast enough, and cheap enough for <i>this</i> use?” That framing prevents a lot of wasted money and frustration.</p>",
       analogy:
-        "<p>It's the classic “fast, good, cheap — pick two” of any project. A motorbike courier is fast but pricey for big loads; a cargo ship is cheap but slow. You choose based on the delivery, not on which vehicle is “best.”</p>",
+        "<p>It's the classic “fast, good, cheap: pick two” of any project. A motorbike courier is fast but pricey for big loads; a cargo ship is cheap but slow. You choose based on the delivery, not on which vehicle is “best.”</p>",
       mentalModel:
-        "Latency, cost, quality form a triangle — improving one usually costs another. Pick the balance that fits the specific job, not “the best” in a vacuum.",
+        "Latency, cost, quality form a triangle; improving one usually costs another. Pick the balance that fits the specific job, not “the best” in a vacuum.",
       mistakes: [
         "Always reaching for the biggest model. Often a smaller one is plenty and far cheaper/faster.",
         "Optimising for quality on tasks where speed is what users actually feel.",
@@ -397,13 +397,13 @@ window.COURSE.push({
       quiz: [
         {
           q: "What's the core idea of latency vs quality trade-offs?",
-          options: ["A well-optimised serving stack can improve speed without any quality trade-off", "Improving speed/cost often lowers quality, and vice versa — balance per job", "Quantization always improves latency while keeping quality identical to full precision", "Larger context windows reduce both latency and cost by allowing fewer requests"],
+          options: ["A well-optimised serving stack can improve speed without any quality trade-off", "Improving speed/cost often lowers quality, and vice versa; balance per job", "Quantization always improves latency while keeping quality identical to full precision", "Larger context windows reduce both latency and cost by allowing fewer requests"],
           answer: 1,
           why: "Latency, cost, and quality pull against each other; the right balance depends on the use case.",
         },
         {
           q: "How should you choose a model?",
-          options: ["By benchmark scores alone — a higher rank means better real-world results", "By what's good, fast, and cheap enough for the specific task", "By the number of parameters — more is always worth the extra inference cost", "By the training data size — more tokens trained on means fewer quality trade-offs"],
+          options: ["By benchmark scores alone: a higher rank means better real-world results", "By what's good, fast, and cheap enough for the specific task", "By the number of parameters: more is always worth the extra inference cost", "By the training data size: more tokens trained on means fewer quality trade-offs"],
           answer: 1,
           why: "Match the trade-off to the job rather than chasing the abstractly “best” model.",
         },

@@ -1,5 +1,5 @@
 /* ============================================================
-   LLM Engineering Course — engine (vanilla JS, zero deps)
+   LLM Engineering Course: engine (vanilla JS, zero deps)
    COURSE data is provided by content-*.js files (window.COURSE)
    ============================================================ */
 (function () {
@@ -279,7 +279,7 @@
         });
         const right = chosen === sh.answer;
         fb.className = "qfeedback show " + (right ? "ok" : "gentle");
-        fb.innerHTML = '<span class="lead">' + (right ? "Yes — that's it. " : "Good try. ") + "</span>" + (q.why || "");
+        fb.innerHTML = '<span class="lead">' + (right ? "Yes, that's it. " : "Good try. ") + "</span>" + (q.why || "");
       };
       opts.forEach(opt => {
         opt.onclick = () => {
@@ -318,7 +318,7 @@
         if (settings.motion !== "reduced") cbtn.classList.add("pop");
         setTimeout(() => cbtn.classList.remove("pop"), 360);
         const d = doneCount();
-        toast(I.check, d === TOTAL ? "Course complete — every topic done!" : "Saved. " + d + " of " + TOTAL + " done.");
+        toast(I.check, d === TOTAL ? "Course complete, every topic done!" : "Saved. " + d + " of " + TOTAL + " done.");
       }
     };
     row.appendChild(cbtn);
@@ -396,7 +396,7 @@
     const r = el("div", "reader fade-in");
     const h = el("div", "home");
 
-    // Find first incomplete topic — this is always the right next step
+    // Find first incomplete topic; this is always the right next step
     const firstIncomplete = flat.find(f => !completed[f.topic.id]);
     const rt = firstIncomplete || flat[flat.length - 1]; // fall back to last topic if all done
     const allDone = !firstIncomplete && d === TOTAL;
@@ -420,13 +420,13 @@
           '<h1>How LLMs Actually Work</h1>' +
         '</div>' +
       '</div>' +
-      '<p class="sub">A calm, step-by-step course in plain English — built for how <b>your</b> brain works. ' +
+      '<p class="sub">A calm, step-by-step course in plain English, built for how <b>your</b> brain works. ' +
       "Short topics, the same predictable shape every time, and progress that saves itself.</p>" +
       buildThemeStrip() +
       resumeHTML +
       '<div class="how">' +
       howCard(I.list, "Same shape every time", "Every topic: lesson, an everyday analogy, a mental model, mistakes to avoid, and a small project. No surprises.") +
-      howCard(I.save, "It remembers for you", "Mark topics done as you go. Close the tab, come back days later — it opens right where you stopped.") +
+      howCard(I.save, "It remembers for you", "Mark topics done as you go. Close the tab, come back days later; it opens right where you stopped.") +
       howCard(I.clock, "Bite-sized", "Each topic shows a reading time. Do one. Do five. Take a brain break anytime. Go at your pace.") +
       howCard(I.settings, "Make it comfortable", "Light, dark, sepia, or vivid. Bigger text. Reduce motion. Focus mode. Set it up how you like in Settings.") +
       "</div>" +
@@ -567,7 +567,7 @@
       '<div class="set-group"><h3>Text size</h3><div class="seg" id="segSize">' +
         seg("size", "s", "S") + seg("size", "m", "M") + seg("size", "l", "L") + seg("size", "xl", "XL") + "</div></div>" +
       '<div class="set-group"><h3>Comfort</h3>' +
-        toggleRow("motion", "Reduce motion", "Calmer — turns off animations") +
+        toggleRow("motion", "Reduce motion", "Calmer: turns off animations") +
         toggleRow("focus", "Focus mode", "Hide the sidebar while reading") +
         "</div>" +
       '<div class="set-group"><h3>Progress</h3>' +

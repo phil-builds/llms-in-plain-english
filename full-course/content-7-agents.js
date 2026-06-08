@@ -1,4 +1,4 @@
-/* Part 7 — Agents & Workflows */
+/* Part 7: Agents & Workflows */
 window.COURSE.push({
   id: "agents",
   title: "Agents & Workflows",
@@ -11,18 +11,18 @@ window.COURSE.push({
       time: 5,
       tagline: "The cheapest, fastest way to get better results.",
       lesson:
-        "<p><span class='term'>Prompt engineering</span> is the craft of <b>writing your request well</b> so the model gives you what you actually want. It costs nothing, needs no training, and often beats fancier techniques — so it's the first lever to pull.</p>" +
+        "<p><span class='term'>Prompt engineering</span> is the craft of <b>writing your request well</b> so the model gives you what you actually want. It costs nothing, needs no training, and often beats fancier techniques, so it's the first lever to pull.</p>" +
         "<p>The reliable habits: <b>be specific</b> (say exactly what you want), <b>give context</b> (who it's for, why), <b>show an example</b> (a sample of the output style), <b>state the format</b> (“reply as a bullet list”), and <b>set constraints</b> (“under 100 words,” “no jargon”).</p>" +
         "<p>A few power moves: ask the model to <b>think step by step</b> for reasoning tasks; give it a <b>role</b> (“you are a careful editor”); and provide <b>examples of good answers</b> (this is called “few-shot” prompting). Small wording changes can produce big quality jumps.</p>" +
         "<p>Treat prompting as iteration, not magic words. Try, read the result, adjust one thing, try again. You'll develop an instinct fast.</p>",
       analogy:
-        "<p>It's like briefing a talented freelancer. A vague brief (“make it nice”) gets random results. A clear brief — audience, goal, format, an example, a deadline — gets exactly what you wanted. Same worker, wildly different output, all from the brief.</p>",
+        "<p>It's like briefing a talented freelancer. A vague brief (“make it nice”) gets random results. A clear brief (audience, goal, format, an example, a deadline) gets exactly what you wanted. Same worker, wildly different output, all from the brief.</p>",
       mentalModel:
         "Prompt engineering = writing a great brief. Be specific, give context and examples, state the format and limits. Cheap, fast, and often enough on its own.",
       mistakes: [
         "Being vague and blaming the model. Most “bad” answers come from under-specified prompts.",
         "Changing five things at once when iterating, so you can't tell what helped.",
-        "Reaching for fine-tuning before exhausting a good prompt — often prompting alone solves it.",
+        "Reaching for fine-tuning before exhausting a good prompt. Often prompting alone solves it.",
       ],
       exercise: {
         goal: "Improve one prompt through iteration.",
@@ -56,16 +56,16 @@ window.COURSE.push({
       time: 4,
       tagline: "The standing instructions that shape every reply.",
       lesson:
-        "<p>A <span class='term'>system prompt</span> is a special instruction set <b>at the top of the conversation</b> that defines how the model should behave throughout — its role, tone, rules, and boundaries. The user's messages come after it.</p>" +
+        "<p>A <span class='term'>system prompt</span> is a special instruction set <b>at the top of the conversation</b> that defines how the model should behave throughout: its role, tone, rules, and boundaries. The user's messages come after it.</p>" +
         "<p>Think of it as the model's job description for this session: “You are a friendly support agent for a bike shop. Be concise. Never give medical advice. Always offer the return policy link when relevant.” Every reply is shaped by these standing orders.</p>" +
-        "<p>System prompts are powerful because they're <b>persistent</b> — you set the behaviour once instead of repeating instructions every message. They're how apps give the same model totally different personalities and rules.</p>" +
+        "<p>System prompts are powerful because they're <b>persistent</b>: you set the behaviour once instead of repeating instructions every message. They're how apps give the same model totally different personalities and rules.</p>" +
         "<p>They're not foolproof: clever user messages can sometimes push against them, and very long system prompts eat context. But a clear, focused system prompt is one of the highest-leverage tools you have.</p>",
       analogy:
-        "<p>It's the staff handbook handed to an employee on day one: who you serve, how to speak, what's off-limits. They don't re-read it for every customer — it just shapes how they handle each one. The system prompt is that handbook for the model.</p>",
+        "<p>It's the staff handbook handed to an employee on day one: who you serve, how to speak, what's off-limits. They don't re-read it for every customer; it just shapes how they handle each one. The system prompt is that handbook for the model.</p>",
       mentalModel:
         "System prompt = persistent job description set once at the top. Defines role, tone, rules, and limits for the whole session. High leverage, but not unbreakable.",
       mistakes: [
-        "Cramming everything into a giant system prompt — it wastes context and gets ignored. Keep it focused.",
+        "Cramming everything into a giant system prompt. It wastes context and gets ignored. Keep it focused.",
         "Assuming it's an unbreakable security wall. Treat sensitive rules with real safeguards, not just instructions.",
         "Repeating instructions in every user message when a system prompt would set them once.",
       ],
@@ -74,7 +74,7 @@ window.COURSE.push({
         steps: [
           "Pick an assistant role you'd want (tutor, editor, planner).",
           "Write a system prompt with: role, tone, 2 rules, and 1 boundary.",
-          "Keep it under 120 words — focused beats sprawling.",
+          "Keep it under 120 words; focused beats sprawling.",
           "Test it in a chatbot's custom-instructions or system field and see if behaviour holds.",
         ],
         stretch: "Try to make the model break one of its own rules with a tricky user message, and note how robust your system prompt was.",
@@ -101,11 +101,11 @@ window.COURSE.push({
       time: 5,
       tagline: "Letting a model use real tools beyond text.",
       lesson:
-        "<p>A model can only produce text. <span class='term'>Tool calling</span> is the system that lets it <b>use real-world tools</b> — search the web, run a calculation, query a database, send an email — by asking your code to do it.</p>" +
-        "<p>Here's the dance: you tell the model which tools exist and what they do. When a question needs one, the model doesn't pretend — it outputs a structured request like “call the weather tool for Tokyo.” <b>Your code</b> runs that tool, gets the result, and feeds it back. The model then uses the result to answer.</p>" +
+        "<p>A model can only produce text. <span class='term'>Tool calling</span> is the system that lets it <b>use real-world tools</b> (search the web, run a calculation, query a database, send an email) by asking your code to do it.</p>" +
+        "<p>Here's the dance: you tell the model which tools exist and what they do. When a question needs one, the model doesn't pretend; it outputs a structured request like “call the weather tool for Tokyo.” <b>Your code</b> runs that tool, gets the result, and feeds it back. The model then uses the result to answer.</p>" +
         "<p>This transforms a chatbot into something that can <i>act</i> and access live, accurate information. Need today's exchange rate? It calls a rate tool instead of guessing. Need math? It calls a calculator instead of fumbling arithmetic.</p>" +
         "<p>Tool calling is the foundation of agents (a couple topics from now). Without tools, a model is a brain in a jar; with tools, it has hands.</p>" +
-        "<p>A standard called <span class='term'>MCP</span> (Model Context Protocol) has emerged as a common way to define and share tools across different models and apps. Instead of wiring tools differently for every project, MCP provides a consistent interface — a tool built once can be used by any MCP-compatible model. You'll encounter it increasingly as you build agents.</p>",
+        "<p>A standard called <span class='term'>MCP</span> (Model Context Protocol) has emerged as a common way to define and share tools across different models and apps. Instead of wiring tools differently for every project, MCP provides a consistent interface: a tool built once can be used by any MCP-compatible model. You'll encounter it increasingly as you build agents.</p>",
       analogy:
         "<p>Imagine a smart friend on the phone who can't reach anything themselves. They tell <i>you</i> “please check the oven” or “look up that address,” you do it and report back, and they keep helping. Tool calling is the model directing actions while your code is its hands.</p>",
       mentalModel:
@@ -136,7 +136,7 @@ window.COURSE.push({
           q: "Why is tool calling so important?",
           options: ["It improves the model's reasoning by letting it verify its own chain of thought", "It lets a text-only model take actions and access live, accurate data", "It reduces hallucinations by making the model reconsider each answer twice", "It extends the model's context so it can process longer documents in one pass"],
           answer: 1,
-          why: "Tools give the model hands — real actions and current information instead of guesses.",
+          why: "Tools give the model hands: real actions and current information instead of guesses.",
         },
       ],
     },
@@ -147,8 +147,8 @@ window.COURSE.push({
       time: 4,
       tagline: "The structured format that makes tool calling reliable.",
       lesson:
-        "<p><span class='term'>Function calling</span> is the common, structured way tool calling is implemented. Instead of the model writing free-form “please check the weather,” it outputs a clean, machine-readable request — typically <b>JSON</b> naming the function and its arguments.</p>" +
-        "<p>For example: <code>{ \"name\": \"get_weather\", \"arguments\": { \"city\": \"Tokyo\" } }</code>. Because it's structured, your code can reliably read it, run the matching function, and return the result — no fragile guessing about what the model meant.</p>" +
+        "<p><span class='term'>Function calling</span> is the common, structured way tool calling is implemented. Instead of the model writing free-form “please check the weather,” it outputs a clean, machine-readable request: typically <b>JSON</b> naming the function and its arguments.</p>" +
+        "<p>For example: <code>{ \"name\": \"get_weather\", \"arguments\": { \"city\": \"Tokyo\" } }</code>. Because it's structured, your code can reliably read it, run the matching function, and return the result, with no fragile guessing about what the model meant.</p>" +
         "<p>You define the available functions with a schema (name, description, expected inputs). The model is trained to fill that schema correctly. This reliability is what makes real, production tool use possible.</p>" +
         "<p>So: <b>tool calling</b> is the idea (model uses tools); <b>function calling</b> is the dependable, structured mechanism most systems use to do it.</p>",
       analogy:
@@ -158,7 +158,7 @@ window.COURSE.push({
       mistakes: [
         "Writing loose function schemas. Clear names, descriptions, and input types make the model fill them correctly.",
         "Not validating the model's output before running it. Always check the arguments are sensible/safe.",
-        "Confusing it with tool calling as a separate thing — function calling is how tool calling is typically done.",
+        "Confusing it with tool calling as a separate thing. Function calling is how tool calling is typically done.",
       ],
       exercise: {
         goal: "Write a function schema and a sample call.",
@@ -175,11 +175,11 @@ window.COURSE.push({
           q: "What is function calling?",
           options: ["A programming technique where code is passed as a parameter to another function", "The structured (usually JSON) format a model uses to request a tool reliably", "A natural-language description the model generates to explain which tool it chose", "A validation step that checks the model's output for harmful content before returning it"],
           answer: 1,
-          why: "It's the machine-readable mechanism — name plus arguments — that makes tool use dependable.",
+          why: "It's the machine-readable mechanism (name plus arguments) that makes tool use dependable.",
         },
         {
           q: "How do tool calling and function calling relate?",
-          options: ["Tool calling and function calling are competing API standards from different providers", "Tool calling is the concept; function calling is the structured mechanism for it", "They refer to the same thing — the terms are used interchangeably across all platforms", "Function calling is a broader idea; tool calling is one specific implementation of it"],
+          options: ["Tool calling and function calling are competing API standards from different providers", "Tool calling is the concept; function calling is the structured mechanism for it", "They refer to the same thing: the terms are used interchangeably across all platforms", "Function calling is a broader idea; tool calling is one specific implementation of it"],
           answer: 1,
           why: "Function calling is the reliable, structured way most systems implement tool calling.",
         },
@@ -192,17 +192,17 @@ window.COURSE.push({
       time: 6,
       tagline: "A model that plans, acts, and adapts toward a goal.",
       lesson:
-        "<p>An <span class='term'>AI agent</span> is a model set up to <b>pursue a goal by taking actions in a loop</b>, instead of just answering one message. You give it an objective; it thinks, uses tools, observes the results, and decides the next step — repeating until the goal is met.</p>" +
-        "<p>The core loop is often summarised as <b>think → act → observe → repeat</b>. (This is also called the <b>ReAct pattern</b> — Reason + Act — if you see that term in frameworks or papers, it's this same idea.) Example: “Book me a table Friday.” The agent reasons (“I need a restaurant and time”), acts (searches, checks availability via tools), observes (sees options), and continues (picks, books, confirms) — adapting as it learns.</p>" +
+        "<p>An <span class='term'>AI agent</span> is a model set up to <b>pursue a goal by taking actions in a loop</b>, instead of just answering one message. You give it an objective; it thinks, uses tools, observes the results, and decides the next step, repeating until the goal is met.</p>" +
+        "<p>The core loop is often summarised as <b>think → act → observe → repeat</b>. (This is also called the <b>ReAct pattern</b>, short for Reason + Act; if you see that term in frameworks or papers, it's this same idea.) Example: “Book me a table Friday.” The agent reasons (“I need a restaurant and time”), acts (searches, checks availability via tools), observes (sees options), and continues (picks, books, confirms), adapting as it learns.</p>" +
         "<p>What separates an agent from a plain chatbot is <b>autonomy and tools</b>: it can break a goal into steps, call tools, react to what happens, and recover from problems, all with limited hand-holding.</p>" +
         "<p>Agents are powerful but trickier: they can loop forever, take wrong actions, or rack up cost. Good agents have clear goals, the right tools, limits (max steps, budgets), and human checkpoints for risky actions.</p>",
       analogy:
-        "<p>A chatbot is like asking a colleague a question. An agent is like handing them a task: “organise the team lunch.” They make calls, check calendars, adjust when a venue's full, and report back done. They don't need a new instruction at every step — they pursue the goal.</p>",
+        "<p>A chatbot is like asking a colleague a question. An agent is like handing them a task: “organise the team lunch.” They make calls, check calendars, adjust when a venue's full, and report back done. They don't need a new instruction at every step; they pursue the goal.</p>",
       mentalModel:
         "AI agent = goal + tools + a think-act-observe loop. It plans, acts, and adapts toward an objective, rather than answering a single prompt. Needs limits and guardrails.",
       mistakes: [
         "Giving an agent a fuzzy goal. Vague objectives lead to wandering, costly loops.",
-        "No limits — agents can loop endlessly or overspend. Set max steps, budgets, and stop conditions.",
+        "No limits. Agents can loop endlessly or overspend. Set max steps, budgets, and stop conditions.",
         "Letting it take risky actions unsupervised. Keep humans in the loop for anything consequential.",
       ],
       exercise: {
@@ -237,9 +237,9 @@ window.COURSE.push({
       time: 5,
       tagline: "Designing reliable multi-step AI processes.",
       lesson:
-        "<p>An <span class='term'>agentic workflow</span> is a <b>designed sequence of AI steps</b> that accomplishes a bigger task — sometimes fully autonomous, often a planned pipeline with AI at each stage. It's the practical, reliable cousin of a free-roaming agent.</p>" +
+        "<p>An <span class='term'>agentic workflow</span> is a <b>designed sequence of AI steps</b> that accomplishes a bigger task: sometimes fully autonomous, often a planned pipeline with AI at each stage. It's the practical, reliable cousin of a free-roaming agent.</p>" +
         "<p>Rather than hoping one agent figures everything out, you <b>break the task into clear steps</b> and decide how AI helps at each: draft → review → revise → format, for instance. Each step has a focused job, which is more reliable and easier to debug than one giant open-ended agent.</p>" +
-        "<p>A useful spectrum: at one end, fixed <b>pipelines</b> (predictable steps, AI fills each); at the other, fully <b>autonomous agents</b> (the AI decides the steps). Most production systems live in between — structured workflows with some flexibility where it's safe.</p>" +
+        "<p>A useful spectrum: at one end, fixed <b>pipelines</b> (predictable steps, AI fills each); at the other, fully <b>autonomous agents</b> (the AI decides the steps). Most production systems live in between: structured workflows with some flexibility where it's safe.</p>" +
         "<p>Key design ideas: give each step a single clear purpose, validate outputs between steps, and add loops or human checks only where they earn their keep. Reliability comes from structure, not from hoping the AI improvises well.</p>",
       analogy:
         "<p>Think of an assembly line versus one craftsperson building a whole car alone. The line (workflow) has focused stations, easy quality checks, and predictable output. The lone craftsperson (open agent) is flexible but harder to make consistent. Most factories choose the line.</p>",
@@ -282,16 +282,16 @@ window.COURSE.push({
       time: 5,
       tagline: "Several specialised agents collaborating like a team.",
       lesson:
-        "<p>A <span class='term'>multi-agent system</span> uses <b>several agents that each have a role and work together</b> on a task — like a team rather than a single worker. One might plan, another research, another write, another check the work.</p>" +
+        "<p>A <span class='term'>multi-agent system</span> uses <b>several agents that each have a role and work together</b> on a task, like a team rather than a single worker. One might plan, another research, another write, another check the work.</p>" +
         "<p>The appeal: specialisation and separation of concerns. A “researcher” agent focused only on finding facts, plus a “critic” agent focused only on spotting errors, can outperform one agent trying to do everything. They pass results to each other, sometimes debating or reviewing.</p>" +
         "<p>Common patterns include a <b>manager/worker</b> setup (a coordinator delegates to specialists) and <b>reviewer</b> loops (one agent produces, another critiques, the first revises). It mirrors how human teams divide work.</p>" +
-        "<p>The catch: more agents means more complexity, cost, and ways to go wrong (they can confuse each other or loop). Use multiple agents when a task genuinely benefits from distinct roles — not just because it sounds impressive.</p>",
+        "<p>The catch: more agents means more complexity, cost, and ways to go wrong (they can confuse each other or loop). Use multiple agents when a task genuinely benefits from distinct roles, not just because it sounds impressive.</p>",
       analogy:
-        "<p>It's a small company instead of a solo freelancer. A manager assigns work, a researcher digs, a writer drafts, an editor checks. Each does their specialty well, and the handoffs produce better work than one person juggling every role — but coordinating them takes effort.</p>",
+        "<p>It's a small company instead of a solo freelancer. A manager assigns work, a researcher digs, a writer drafts, an editor checks. Each does their specialty well, and the handoffs produce better work than one person juggling every role, but coordinating them takes effort.</p>",
       mentalModel:
         "Multi-agent system = a team of specialised agents (planner, researcher, writer, critic) collaborating. Better via specialisation, but more complex and costly to coordinate.",
       mistakes: [
-        "Using many agents for a simple task one agent handles fine — adding cost and failure points.",
+        "Using many agents for a simple task one agent handles fine, adding cost and failure points.",
         "Unclear roles, so agents overlap, conflict, or loop endlessly.",
         "No coordinator or stop conditions, letting the “team” spiral without finishing.",
       ],
@@ -327,12 +327,12 @@ window.COURSE.push({
       time: 4,
       tagline: "The standard that lets models connect to tools and data without custom wiring.",
       lesson:
-        "<p><span class='term'>MCP</span> stands for <b>Model Context Protocol</b>. It's an open standard that defines a consistent way for LLMs to connect to tools, databases, files, and other data sources. Without it, every team wires their tools differently — with it, a tool built once works with any MCP-compatible model.</p>" +
+        "<p><span class='term'>MCP</span> stands for <b>Model Context Protocol</b>. It's an open standard that defines a consistent way for LLMs to connect to tools, databases, files, and other data sources. Without it, every team wires their tools differently; with it, a tool built once works with any MCP-compatible model.</p>" +
         "<p>Think of it as the USB standard for AI tools. Before USB, every device needed its own cable. After USB, one port fits everything. MCP does the same for model tools: any server exposing the MCP interface can be used by any compatible model or app.</p>" +
-        "<p>MCP servers can expose tools (functions the model can call), resources (files or data it can read), and prompts (reusable templates). The model talks to these via a standard JSON-based protocol. You call a weather tool, a file reader, or a database — all through the same interface.</p>" +
+        "<p>MCP servers can expose tools (functions the model can call), resources (files or data it can read), and prompts (reusable templates). The model talks to these via a standard JSON-based protocol. You call a weather tool, a file reader, or a database, all through the same interface.</p>" +
         "<p>In practice: growing AI ecosystems (like Claude.ai, Cursor, and many agent frameworks) now support MCP directly, so understanding it helps you plug in tools and build agents that work across platforms.</p>",
       analogy:
-        "<p>Before universal remote controls, every TV brand needed its own remote. Then a universal standard appeared — one remote, all TVs. MCP is the universal remote for AI tools: one standard interface, any model that supports it can pick up and use any MCP tool.</p>",
+        "<p>Before universal remote controls, every TV brand needed its own remote. Then a universal standard appeared: one remote, all TVs. MCP is the universal remote for AI tools: one standard interface, any model that supports it can pick up and use any MCP tool.</p>",
       mentalModel:
         "MCP = the USB standard for AI tools. Build a tool once to the MCP spec and any compatible model can use it. One consistent interface instead of custom wiring per project.",
       mistakes: [
@@ -348,20 +348,20 @@ window.COURSE.push({
           "Note which AI apps or agent frameworks already support MCP in their docs.",
           "Write one sentence: how does MCP change the effort of adding a new tool to an agent?",
         ],
-        stretch: "Find the MCP spec on GitHub and read the tool definition format — note the name, description, and input schema fields. That's the full contract.",
+        stretch: "Find the MCP spec on GitHub and read the tool definition format; note the name, description, and input schema fields. That's the full contract.",
       },
       quiz: [
         {
           q: "What problem does MCP solve?",
           options: ["Reduces hallucinations by verifying tool outputs before passing them to the model", "Provides a standard interface so tools can be built once and used by any compatible model", "Replaces function calling by handling all tool requests inside the protocol itself", "Speeds up inference by caching tool responses and reusing them across sessions"],
           answer: 1,
-          why: "MCP is a standard protocol — like USB — so tools don't need custom wiring for each model or app.",
+          why: "MCP is a standard protocol, like USB, so tools don't need custom wiring for each model or app.",
         },
         {
           q: "What can an MCP server expose?",
-          options: ["Only function schemas — resources and prompts must be handled by a separate protocol", "Tools, resources, and prompts — callable and readable by any connected model", "Only read-only resources, since MCP doesn't support functions with side effects", "Configuration files that tell the model which external APIs are safe to query"],
+          options: ["Only function schemas: resources and prompts must be handled by a separate protocol", "Tools, resources, and prompts: callable and readable by any connected model", "Only read-only resources, since MCP doesn't support functions with side effects", "Configuration files that tell the model which external APIs are safe to query"],
           answer: 1,
-          why: "MCP servers can offer functions to call, data to read, and prompt templates — all over one standard interface.",
+          why: "MCP servers can offer functions to call, data to read, and prompt templates, all over one standard interface.",
         },
       ],
     },
@@ -372,12 +372,12 @@ window.COURSE.push({
       time: 5,
       tagline: "Agents that actually click around the web for you.",
       lesson:
-        "<p>A <span class='term'>browser agent</span> is an AI agent that can <b>control a web browser</b> — read pages, click buttons, fill forms, and navigate — to complete tasks on real websites, the way a person would.</p>" +
-        "<p>It works by giving the agent “eyes and hands” for the web: it sees the page (text, sometimes a screenshot), decides an action (“click Login,” “type into the search box”), and a tool performs it. Then it observes the new page and continues — the agent loop, applied to browsing.</p>" +
+        "<p>A <span class='term'>browser agent</span> is an AI agent that can <b>control a web browser</b> (read pages, click buttons, fill forms, and navigate) to complete tasks on real websites, the way a person would.</p>" +
+        "<p>It works by giving the agent “eyes and hands” for the web: it sees the page (text, sometimes a screenshot), decides an action (“click Login,” “type into the search box”), and a tool performs it. Then it observes the new page and continues: the agent loop, applied to browsing.</p>" +
         "<p>This unlocks tasks with no neat API: comparing prices across sites, filling a multi-step form, gathering info from pages. It's powerful for automation where the only interface is a website built for humans.</p>" +
         "<p>But it's among the riskiest agent types: websites change and break the agent, it can misclick, and it may encounter logins, payments, or content that demands caution. Strong guardrails, sandboxing, and human confirmation for sensitive steps are essential.</p>",
       analogy:
-        "<p>It's like giving a capable intern remote control of your web browser. They can do a lot — book, search, fill forms — but you'd watch over their shoulder for anything involving your money or passwords, because one wrong click matters.</p>",
+        "<p>It's like giving a capable intern remote control of your web browser. They can do a lot (book, search, fill forms), but you'd watch over their shoulder for anything involving your money or passwords, because one wrong click matters.</p>",
       mentalModel:
         "Browser agent = the agent loop with a browser as its hands and eyes. Great for human-only websites; risky, so sandbox it and confirm sensitive actions.",
       mistakes: [
@@ -400,11 +400,11 @@ window.COURSE.push({
           q: "What is a browser agent?",
           options: ["A lightweight model embedded in the browser to suggest completions as you type", "An AI agent that controls a browser to do tasks on real websites", "A web scraper that downloads page HTML for an LLM to process offline in batches", "A browser extension that summarises pages and answers questions about their content"],
           answer: 1,
-          why: "It applies the agent loop to a browser — reading, clicking, and navigating like a person.",
+          why: "It applies the agent loop to a browser, reading, clicking, and navigating like a person.",
         },
         {
           q: "Why are browser agents especially risky?",
-          options: ["They generate too many tokens, making them the most expensive agent type to run", "Sites change/break them and they may hit logins or payments — needing guardrails", "They lack the ability to observe results, so they can't adapt mid-task like other agents", "They require a specialised fine-tuned model that general-purpose LLMs can't replace"],
+          options: ["They generate too many tokens, making them the most expensive agent type to run", "Sites change/break them and they may hit logins or payments, needing guardrails", "They lack the ability to observe results, so they can't adapt mid-task like other agents", "They require a specialised fine-tuned model that general-purpose LLMs can't replace"],
           answer: 1,
           why: "Fragile, changing websites plus sensitive actions make sandboxing and human checks essential.",
         },
