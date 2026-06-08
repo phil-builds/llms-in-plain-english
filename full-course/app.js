@@ -544,6 +544,8 @@
       if (confirm("Reset all progress and quiz answers? This cannot be undone.")) {
         completed = {}; quizState = {};
         store.set("completed", completed); store.set("quiz", quizState);
+        store.set("themeChosen", false);
+        previewTheme = settings.theme;
         refreshSidebarStates(); updateProgress();
         if (current === "__home__") renderHome(); else renderTopic(current);
         toast(I.check, "Progress reset.");
