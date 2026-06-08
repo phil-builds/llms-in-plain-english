@@ -210,10 +210,10 @@
     // Footer
     r.appendChild(renderFooter(f));
 
-    main.scrollTop = 0;
+    main.scrollTo({ top: 0, behavior: "instant" });
     main.innerHTML = "";
     main.appendChild(r);
-    main.scrollTop = 0;
+    main.scrollTo({ top: 0, behavior: "instant" });
 
     // wire quiz after in DOM
     wireQuiz(t, r);
@@ -425,10 +425,10 @@
       "</div>";
 
     r.appendChild(h);
-    main.scrollTop = 0;
+    main.scrollTo({ top: 0, behavior: "instant" });
     main.innerHTML = "";
     main.appendChild(r);
-    main.scrollTop = 0;
+    main.scrollTo({ top: 0, behavior: "instant" });
 
     const rb = $("#resumeBtn");
     if (rb) rb.onclick = () => go(resumeTarget);
