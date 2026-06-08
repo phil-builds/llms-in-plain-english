@@ -1151,12 +1151,9 @@ h1.topic-title {
   /* Settings: full-width panel on small screens */
   .settings { left: 10px; right: 10px; width: auto; }
 
-  /* Nav footer: stack prev/next vertically */
-  .nav-row { flex-direction: column; gap: 10px; }
-  .nav-btn { max-width: 100%; }
-  .nav-btn.next { margin-left: 0; justify-content: flex-start; text-align: left; }
-  .nav-btn.next span { order: 1; }
-  .nav-btn.next svg { order: 2; }
+  /* Nav footer: side-by-side on mobile, tighter padding */
+  .nav-btn { padding: 11px 12px; }
+  .nav-btn .ntitle { font-size: 0.82rem; }
 
   /* how-cards: single column on small mobile */
   .home .how { grid-template-columns: 1fr; }

@@ -210,6 +210,7 @@
     // Footer
     r.appendChild(renderFooter(f));
 
+    main.scrollTop = 0;
     main.innerHTML = "";
     main.appendChild(r);
     main.scrollTop = 0;
@@ -424,6 +425,7 @@
       "</div>";
 
     r.appendChild(h);
+    main.scrollTop = 0;
     main.innerHTML = "";
     main.appendChild(r);
     main.scrollTop = 0;
