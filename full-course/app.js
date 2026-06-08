@@ -53,6 +53,7 @@
     { theme: "paper", size: "m", motion: "normal", focus: "off" },
     store.get("settings", {})
   );
+  let previewTheme = settings.theme; // tracks committed theme so hover can revert
 
   // ---------- elements ----------
   const $ = (s, r) => (r || document).querySelector(s);
@@ -332,6 +333,39 @@
   }
   function blankNav() { const b = el("button", "nav-btn"); b.disabled = true; b.style.visibility = "hidden"; return b; }
 
+  // ---------- theme discovery strip ----------
+  function buildThemeStrip() {
+    if (store.get("themeChosen")) return "";
+    return '<div class="welcome-strip" role="region" aria-label="Choose your look">' +
+      '<button class="strip-dismiss" aria-label="Dismiss theme picker">&times;</button>' +
+      '<div class="strip-intro">' +
+        '<div class="strip-icon" aria-hidden="true">' + I.settings + '</div>' +
+        '<div class="strip-text">' +
+          '<div class="strip-label">Make it yours</div>' +
+          '<div class="strip-sub">Try a look before you start &mdash; change it any time via <span class="gear-ref">&#9881;</span> in the top corner.</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="theme-tiles">' +
+        '<button class="theme-tile" data-preview-theme="paper"><div class="theme-tile-preview"></div><span class="theme-tile-name">Paper</span></button>' +
+        '<button class="theme-tile" data-preview-theme="sepia"><div class="theme-tile-preview"></div><span class="theme-tile-name">Sepia</span></button>' +
+        '<button class="theme-tile" data-preview-theme="slate"><div class="theme-tile-preview"></div><span class="theme-tile-name">Dark</span></button>' +
+        '<button class="theme-tile" data-preview-theme="vivid"><div class="theme-tile-preview"></div><span class="theme-tile-name">Vivid</span></button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function collapseStrip(strip) {
+    strip.style.maxHeight = strip.offsetHeight + "px";
+    strip.style.overflow = "hidden";
+    requestAnimationFrame(function() {
+      strip.style.transition = "max-height 0.28s var(--ease), opacity 0.22s var(--ease), margin-bottom 0.28s var(--ease)";
+      strip.style.maxHeight = "0";
+      strip.style.opacity = "0";
+      strip.style.marginBottom = "0";
+    });
+    strip.addEventListener("transitionend", function() { strip.remove(); }, { once: true });
+  }
+
   // ---------- home ----------
   function renderHome() {
     const d = doneCount();
@@ -364,6 +398,7 @@
       '</div>' +
       '<p class="sub">A calm, step-by-step course in plain English — built for how <b>your</b> brain works. ' +
       "Short topics, the same predictable shape every time, and progress that saves itself.</p>" +
+      buildThemeStrip() +
       resumeHTML +
       '<div class="how">' +
       howCard(I.list, "Same shape every time", "Every topic: lesson, an everyday analogy, a mental model, mistakes to avoid, and a small project. No surprises.") +
@@ -392,6 +427,39 @@
     h.querySelectorAll(".syl-item").forEach(it => {
       it.onclick = () => go(it.dataset.first);
     });
+
+    // Wire theme discovery strip (only present on first visit)
+    const strip = h.querySelector(".welcome-strip");
+    if (strip) {
+      strip.querySelectorAll("[data-preview-theme]").forEach(function(tile) {
+        tile.addEventListener("mouseenter", function() {
+          settings.theme = tile.dataset.previewTheme;
+          applySettings();
+        });
+        tile.addEventListener("mouseleave", function() {
+          settings.theme = previewTheme;
+          applySettings();
+        });
+        tile.addEventListener("click", function() {
+          previewTheme = tile.dataset.previewTheme;
+          settings.theme = previewTheme;
+          applySettings();
+          syncSettingsUI();
+          store.set("themeChosen", true);
+          collapseStrip(strip);
+          toast(I.settings, "Theme saved. Change it any time via ⚙ in Settings.");
+        });
+      });
+      const dismissBtn = strip.querySelector(".strip-dismiss");
+      if (dismissBtn) {
+        dismissBtn.onclick = function() {
+          settings.theme = previewTheme;
+          applySettings();
+          store.set("themeChosen", true);
+          collapseStrip(strip);
+        };
+      }
+    }
   }
   function howCard(icon, title, body) {
     return '<div class="how-card"><div class="hc-ico">' + icon + "</div><h3>" + title + "</h3><p>" + body + "</p></div>";

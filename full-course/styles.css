@@ -1187,3 +1187,123 @@ h1.topic-title {
   100% { transform: scale(1); }
 }
 .pop { animation: pop 0.34s var(--ease); }
+
+/* ---- Theme discovery welcome strip ---- */
+.welcome-strip {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 18px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  position: relative;
+}
+.strip-dismiss {
+  position: absolute;
+  top: 9px; right: 9px;
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: background var(--speed), color var(--speed);
+}
+.strip-dismiss:hover { background: var(--surface-2); color: var(--text); }
+.strip-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  flex: 1;
+  min-width: 0;
+}
+.strip-icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  display: grid; place-items: center;
+  flex: none;
+}
+.strip-icon svg { width: 14px; height: 14px; }
+.strip-label {
+  font-size: 0.70rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  font-weight: 650;
+  margin-bottom: 3px;
+}
+.strip-sub {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+}
+.strip-sub .gear-ref { color: var(--accent-text); font-size: 1em; }
+.theme-tiles {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+.theme-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.theme-tile-preview {
+  width: 58px; height: 42px;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--speed) var(--ease);
+}
+.theme-tile:hover .theme-tile-preview,
+.theme-tile:focus-visible .theme-tile-preview { transform: scale(1.06); }
+/* Per-theme preview backgrounds — hardcoded, independent of active theme */
+.theme-tile[data-preview-theme="paper"] .theme-tile-preview  { background: oklch(0.985 0.006 85); border-color: oklch(0.90 0.008 80); }
+.theme-tile[data-preview-theme="sepia"] .theme-tile-preview  { background: oklch(0.93 0.022 78);  border-color: oklch(0.84 0.024 70); }
+.theme-tile[data-preview-theme="slate"] .theme-tile-preview  { background: oklch(0.205 0.008 250); border-color: oklch(0.34 0.012 252); }
+.theme-tile[data-preview-theme="vivid"] .theme-tile-preview  { background: oklch(0.175 0.045 275); border-color: oklch(0.360 0.045 270); }
+/* Accent bar at the bottom of each tile */
+.theme-tile-preview::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+}
+.theme-tile[data-preview-theme="paper"] .theme-tile-preview::after { background: oklch(0.55 0.062 205); }
+.theme-tile[data-preview-theme="sepia"] .theme-tile-preview::after { background: oklch(0.50 0.066 150); }
+.theme-tile[data-preview-theme="slate"] .theme-tile-preview::after { background: oklch(0.74 0.070 210); }
+.theme-tile[data-preview-theme="vivid"] .theme-tile-preview::after { background: oklch(0.760 0.175 188); }
+/* Active ring — CSS automatically picks up [data-theme] on html */
+[data-theme="paper"] .theme-tile[data-preview-theme="paper"] .theme-tile-preview,
+[data-theme="sepia"] .theme-tile[data-preview-theme="sepia"] .theme-tile-preview,
+[data-theme="slate"] .theme-tile[data-preview-theme="slate"] .theme-tile-preview,
+[data-theme="vivid"] .theme-tile[data-preview-theme="vivid"] .theme-tile-preview {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.theme-tile-name {
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  font-weight: 550;
+}
+
+/* Mobile: strip stacks vertically, tiles go 2-up */
+@media (max-width: 680px) {
+  .welcome-strip { flex-direction: column; align-items: stretch; gap: 14px; padding-right: 40px; }
+  .theme-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .theme-tile-preview { width: 100%; height: 40px; }
+}
