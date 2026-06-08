@@ -345,11 +345,17 @@
           '<div class="strip-sub">Try a look before you start &mdash; change it any time via <span class="gear-ref">&#9881;</span> in the top corner.</div>' +
         '</div>' +
       '</div>' +
-      '<div class="theme-tiles">' +
-        '<button class="theme-tile" data-preview-theme="paper"><div class="theme-tile-preview"></div><span class="theme-tile-name">Paper</span></button>' +
-        '<button class="theme-tile" data-preview-theme="sepia"><div class="theme-tile-preview"></div><span class="theme-tile-name">Sepia</span></button>' +
-        '<button class="theme-tile" data-preview-theme="slate"><div class="theme-tile-preview"></div><span class="theme-tile-name">Dark</span></button>' +
-        '<button class="theme-tile" data-preview-theme="vivid"><div class="theme-tile-preview"></div><span class="theme-tile-name">Vivid</span></button>' +
+      '<div class="strip-right">' +
+        '<div class="theme-tiles">' +
+          '<button class="theme-tile" data-preview-theme="paper"><div class="theme-tile-preview"></div><span class="theme-tile-name">Paper</span></button>' +
+          '<button class="theme-tile" data-preview-theme="sepia"><div class="theme-tile-preview"></div><span class="theme-tile-name">Sepia</span></button>' +
+          '<button class="theme-tile" data-preview-theme="slate"><div class="theme-tile-preview"></div><span class="theme-tile-name">Dark</span></button>' +
+          '<button class="theme-tile" data-preview-theme="vivid"><div class="theme-tile-preview"></div><span class="theme-tile-name">Vivid</span></button>' +
+        '</div>' +
+        '<div class="strip-confirm-row">' +
+          '<button class="strip-confirm-btn">Use <span class="strip-confirm-name">this theme</span> &rarr;</button>' +
+          '<button class="strip-cancel-btn">Cancel</button>' +
+        '</div>' +
       '</div>' +
     '</div>';
   }
@@ -431,25 +437,54 @@
     // Wire theme discovery strip (only present on first visit)
     const strip = h.querySelector(".welcome-strip");
     if (strip) {
+      var selectedTheme = null; // tile has been clicked but not yet confirmed
+      var confirmNameEl = strip.querySelector(".strip-confirm-name");
+      var confirmBtn = strip.querySelector(".strip-confirm-btn");
+      var cancelBtn = strip.querySelector(".strip-cancel-btn");
+
       strip.querySelectorAll("[data-preview-theme]").forEach(function(tile) {
+        // Desktop hover: live preview, reverts to selected (or original) on leave
         tile.addEventListener("mouseenter", function() {
           settings.theme = tile.dataset.previewTheme;
           applySettings();
         });
         tile.addEventListener("mouseleave", function() {
-          settings.theme = previewTheme;
+          settings.theme = selectedTheme || previewTheme;
           applySettings();
         });
+        // Click / tap: select the theme and show confirm row
         tile.addEventListener("click", function() {
-          previewTheme = tile.dataset.previewTheme;
-          settings.theme = previewTheme;
+          selectedTheme = tile.dataset.previewTheme;
+          settings.theme = selectedTheme;
+          applySettings();
+          if (confirmNameEl) confirmNameEl.textContent = tile.querySelector(".theme-tile-name").textContent;
+          strip.classList.add("has-selection");
+        });
+      });
+
+      // Confirm: commit the selection
+      if (confirmBtn) {
+        confirmBtn.addEventListener("click", function() {
+          previewTheme = selectedTheme;
+          settings.theme = selectedTheme;
           applySettings();
           syncSettingsUI();
           store.set("themeChosen", true);
           collapseStrip(strip);
           toast(I.settings, "Theme saved. Change it any time via ⚙ in Settings.");
         });
-      });
+      }
+
+      // Cancel: deselect and revert to original theme
+      if (cancelBtn) {
+        cancelBtn.addEventListener("click", function() {
+          selectedTheme = null;
+          settings.theme = previewTheme;
+          applySettings();
+          strip.classList.remove("has-selection");
+        });
+      }
+
       const dismissBtn = strip.querySelector(".strip-dismiss");
       if (dismissBtn) {
         dismissBtn.onclick = function() {
@@ -529,6 +564,8 @@
         settings[key] = val;
         applySettings();
         syncSettingsUI();
+        // Close after picking a theme so the full page is visible in the new look
+        if (key === "theme") closeSettings();
       };
     });
     pop.querySelectorAll("[data-toggle]").forEach(b => {
